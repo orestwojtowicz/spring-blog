@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        <h4>CODE & SPORT BLOG</h4>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Account</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+        <li><a href="#">Log out</a></li>
+        <li><a th:href="@{/register}">Register</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
+</body>
+
+</html>
