@@ -50,6 +50,14 @@ public class User implements UserDetails {
     private boolean enabled = true;
 
 
+    // @OneToOne(mappedBy = "user")
+    @ToString.Exclude
+    @JoinColumn(name = "user_detail_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(unique = true)
+    private UserDetail userDetail;
+
+
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
