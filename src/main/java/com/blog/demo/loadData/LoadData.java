@@ -1,6 +1,6 @@
 package com.blog.demo.loadData;
 
-import com.blog.demo.UserRepository;
+import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.blog.demo;
+package com.blog.demo.repositories;
 
 
 import com.blog.demo.entities.Role;

@@ -1,7 +1,7 @@
 package com.blog.demo.configuration.security;
 
 
-import com.blog.demo.UserRepository;
+import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
