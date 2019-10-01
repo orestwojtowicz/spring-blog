@@ -32,6 +32,10 @@ public class User implements UserDetails {
     private Long id;
 
 
+    @Column
+    private String publicUserID; // set in register service
+
+
     @NotNull
     @Size(min = 8, max = 20)
     @Column(nullable = false, unique = true)
@@ -47,7 +51,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled = false;
 
 
     // @OneToOne(mappedBy = "user")

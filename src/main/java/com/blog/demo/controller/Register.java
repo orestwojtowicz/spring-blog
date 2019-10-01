@@ -44,7 +44,8 @@ public class Register {
         // Register new user
         User newUser = userService.registerNewUser(user);
         redirectAttributes
-                .addAttribute("id",newUser.getId())
+               // .addAttribute("id",newUser.getId())
+                .addAttribute("id", newUser.getPublicUserID())
                 .addFlashAttribute("success",true);
         return "redirect:/register";
 

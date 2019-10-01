@@ -3,6 +3,7 @@ package com.blog.demo.services;
 import com.blog.demo.entities.User;
 import com.blog.demo.repositories.RoleRepository;
 import com.blog.demo.repositories.UserRepository;
+import com.blog.demo.utills.RandomPublicUserID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
     private final RoleRepository roleRepository;
+    private final RandomPublicUserID randomPublicUserID;
 
     public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository) {
+                       RoleRepository roleRepository)  {
+
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        randomPublicUserID = new RandomPublicUserID();
         encoder = new BCryptPasswordEncoder();
     }
 
@@ -30,6 +34,8 @@ public class UserService {
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
         user.setPassword(secret);
         user.addRole(roleRepository.findByName("ROLE_USER"));
+        String publicUserID = randomPublicUserID.generateRandomBytes();
+        user.setPublicUserID(publicUserID);
         // change it later to false
         user.setEnabled(true);
         log.info("SAVING USER " + user.toString());
@@ -39,10 +45,6 @@ public class UserService {
 
         return user;
     }
-
-
-
-
 
 
 
