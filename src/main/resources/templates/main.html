@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,11 +11,11 @@
         <h4>CODE & SPORT BLOG</h4>
     </div>
     <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Account</a></li>
-        <li><a th:href="@{/login}">Login</a></li>
-        <li><a href="#">Log out</a></li>
-        <li><a th:href="@{/register}">Register</a></li>
+        <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
+        <li><a href="#" sec:authorize="isAuthenticated()">Account</a></li>
+        <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
+        <li><a href="#" sec:authorize="isAuthenticated()">Log out</a></li>
+        <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
     </ul>
     <div class="burger">
         <div class="line1"></div>

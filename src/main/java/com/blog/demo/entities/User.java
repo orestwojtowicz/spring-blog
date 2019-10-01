@@ -1,5 +1,7 @@
 package com.blog.demo.entities;
 
+
+
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Created by damiass on Sep, 2019
  */
+
 @ToString
 @Entity
 @Getter
@@ -39,10 +42,15 @@ public class User implements UserDetails {
     private String password;
 
     @NotNull
+    @Column(length = 100)
+    private String nick;
+
+    @NotNull
     @Column(nullable = false)
     private boolean enabled = true;
 
 
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -65,9 +73,11 @@ public class User implements UserDetails {
     }
 
 
-    public User(@NotNull @Size(min = 8, max = 20) String email, @NotNull String password) {
+    public User(@NotNull @Size(min = 8, max = 20) String email,
+                @NotNull String password, @NotNull String nick) {
         this.email = email;
         this.password = password;
+        this.nick = nick;
     }
 
     public void addRole(Role role) {

@@ -23,6 +23,7 @@ public class Role {
 
     private String name;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
 
