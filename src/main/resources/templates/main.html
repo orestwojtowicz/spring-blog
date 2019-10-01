@@ -14,7 +14,7 @@
         <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
         <li><a href="#" sec:authorize="isAuthenticated()">Account</a></li>
         <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
-        <li><a href="#" sec:authorize="isAuthenticated()">Log out</a></li>
+        <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
         <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
     </ul>
     <div class="burger">

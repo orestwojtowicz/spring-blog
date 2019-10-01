@@ -38,11 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .usernameParameter("email")
-                .passwordParameter("password").and()
+                .passwordParameter("password")
+                .and()
+                .logout().logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID")
+                .and()
             .csrf().disable()
             .headers().frameOptions().disable();
     }
-
-
 
 }
