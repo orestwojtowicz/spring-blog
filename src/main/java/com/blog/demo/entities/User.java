@@ -51,7 +51,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(nullable = false)
-    private boolean enabled = false;
+    private boolean enabled = true;
 
 
     // @OneToOne(mappedBy = "user")

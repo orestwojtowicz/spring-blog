@@ -23,6 +23,30 @@
         <div class="line3"></div>
     </div>
 </nav>
+
+<section>
+    <div th:each="post : ${posts}">
+        <div>
+            <p th:text="${post.getPostContent()}"></p>
+        </div>
+    </div>
+</section>
+
+
+
+
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
