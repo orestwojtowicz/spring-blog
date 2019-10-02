@@ -5,8 +5,11 @@ import com.blog.demo.repositories.RoleRepository;
 import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.utills.RandomPublicUserID;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Created by damiass on Oct, 2019
@@ -47,5 +50,20 @@ public class UserService {
     }
 
 
+    // USER PROFILE INFORMATION
+    // user email = auth.getName()
+
+  /*  public String getUserProfileInformation(String userEmail) {
+
+        Optional<User> userData = userRepository.findByEmail(userEmail);
+
+        String nick = userData.get().getNick();
+
+
+
+    }*/
+
 
 }
+// MAIL CONFIRMATION
+// https://www.codebyamir.com/blog/user-account-registration-with-spring-boot

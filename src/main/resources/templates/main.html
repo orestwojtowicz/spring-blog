@@ -12,10 +12,12 @@
     </div>
     <ul class="nav-links">
         <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
-        <li><a href="#" sec:authorize="isAuthenticated()">Account</a></li>
+        <li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Account</a></li>
         <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
         <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
         <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
+
+        <li><a th:href="@{/post}" sec:authorize="hasRole('ADMIN')" >add post</a></li>
     </ul>
     <div class="burger">
         <div class="line1"></div>
@@ -27,13 +29,14 @@
 <section>
     <div th:each="post : ${posts}">
         <div>
+            <p th:text="'by ' + ${post.getUser().getNick()}"> </p>
+        </div>
+        <div>
             <p th:text="${post.getPostContent()}"></p>
+            <p th:datetime="${post.creationDate}"></p>
         </div>
     </div>
 </section>
-
-
-
 
 </body>
 

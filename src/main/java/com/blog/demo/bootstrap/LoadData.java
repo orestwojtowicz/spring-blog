@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -64,7 +66,7 @@ public class LoadData implements CommandLineRunner {
 
         BCryptPasswordEncoder loginEncoder = new BCryptPasswordEncoder();
         String passForLogin = "{bcrypt}" + loginEncoder.encode("password");
-        User loginUser = new User("admin@gmail.com", passForLogin, "ROLE_ADMIN");
+        User loginUser = new User("admin@gmail.com", passForLogin, "bigos");
         roleRepository.save(adminRole);
         loginUser.addRole(adminRole);
 
@@ -99,6 +101,9 @@ public class LoadData implements CommandLineRunner {
 
         saveSinglePostToUser();
         saveNewUserEntity();
+
+
+
 
     }
 

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Table(name="comment")
 @ToString
-public class Comment {
+public class Comment extends Auditable {
 
     @Id
     @GeneratedValue

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Table(name = "post")
-public class Post {
+public class Post extends Auditable {
 
     @Id
     @GeneratedValue
