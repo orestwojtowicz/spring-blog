@@ -6,6 +6,7 @@ import com.blog.demo.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -29,21 +30,25 @@ public class LoadData implements CommandLineRunner {
     private final PostRepository postRepository;
     private final UserDetailsRepository userDetailsRepository;
     private final CommentRepository commentRepository;
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+ private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+  // private final BCryptPasswordEncoder encoder;
 
     public LoadData(UserService userEntityService,
                                  UserRepository userRepository,
                                  RoleRepository roleRepository,
                                  PostRepository postRepository,
                                  UserDetailsRepository userDetailsRepository,
-                                 CommentRepository commentRepository) {
+                                 CommentRepository commentRepository
+                                ) {
         this.userEntityService = userEntityService;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.postRepository = postRepository;
         this.userDetailsRepository = userDetailsRepository;
         this.commentRepository = commentRepository;
+
     }
 
     // https://github.com/reljicd/spring-boot-blog/blob/master/src/main/java/com/reljicd/model/Post.java
@@ -52,7 +57,7 @@ public class LoadData implements CommandLineRunner {
     private Role adminRole = new Role("ROLE_ADMIN");
     private Post newPost = new Post("Content of post");
     private Post newPost2 = new Post("Content of post2 huehue :> Cu@ban");
-    private User newUser = new User("user@gmail.com", secret, "kaktusx22");
+    private User newUser = new User("user@gmail.com", secret, "kaktusx22", true);
     private UserDetail userDetail = new UserDetail("About user");
     private Comment comment1 = new Comment("Very good");
     private Comment comment2 = new Comment("Bad bad bad");
@@ -66,7 +71,7 @@ public class LoadData implements CommandLineRunner {
 
         BCryptPasswordEncoder loginEncoder = new BCryptPasswordEncoder();
         String passForLogin = "{bcrypt}" + loginEncoder.encode("password");
-        User loginUser = new User("admin@gmail.com", passForLogin, "bigos");
+        User loginUser = new User("admin@gmail.com", passForLogin, "bigos", true);
         roleRepository.save(adminRole);
         loginUser.addRole(adminRole);
 

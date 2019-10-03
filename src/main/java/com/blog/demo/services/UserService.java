@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by damiass on Oct, 2019
@@ -22,14 +23,18 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
     private final RoleRepository roleRepository;
     private final RandomPublicUserID randomPublicUserID;
+    private final EmailSenderService emailSenderService;
+
 
     public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository)  {
+                       RoleRepository roleRepository,
+                       EmailSenderService emailSenderService)  {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         randomPublicUserID = new RandomPublicUserID();
         encoder = new BCryptPasswordEncoder();
+        this.emailSenderService = emailSenderService;
     }
 
     public User registerNewUser(User user) {
@@ -39,8 +44,14 @@ public class UserService {
         user.addRole(roleRepository.findByName("ROLE_USER"));
         String publicUserID = randomPublicUserID.generateRandomBytes();
         user.setPublicUserID(publicUserID);
-        // change it later to false
-        user.setEnabled(true);
+        // change to true after activation
+        user.setEnabled(false);
+
+        user.setActivationCode(UUID.randomUUID().toString());
+
+        emailSenderService.sendActivationEmail(user);
+
+
         log.info("SAVING USER " + user.toString());
         userRepository.save(user);
         log.info("User saved successfully " + user.toString());
@@ -49,19 +60,13 @@ public class UserService {
         return user;
     }
 
+    public void sendActivationEmail(User user) {
+        emailSenderService.sendActivationEmail(user);
+    }
 
-    // USER PROFILE INFORMATION
-    // user email = auth.getName()
-
-  /*  public String getUserProfileInformation(String userEmail) {
-
-        Optional<User> userData = userRepository.findByEmail(userEmail);
-
-        String nick = userData.get().getNick();
-
-
-
-    }*/
+    public void sendWelcomeEmail(User user) {
+        emailSenderService.sendWelcomeEmail(user);
+    }
 
 
 }

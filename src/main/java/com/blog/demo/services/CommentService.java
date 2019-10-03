@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  * Created by damiass on Sep, 2019
  */
 @Service
-public class CommentService {
+public class CommentService  {
 
     private CommentRepository commentRepository;
 

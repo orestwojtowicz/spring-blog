@@ -51,7 +51,10 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled = false;
+
+
+    private String activationCode;
 
 
     // @OneToOne(mappedBy = "user")
@@ -86,10 +89,11 @@ public class User implements UserDetails {
 
 
     public User(@NotNull @Size(min = 8, max = 20) String email,
-                @NotNull String password, @NotNull String nick) {
+                @NotNull String password, @NotNull String nick, @NotNull boolean isEnabled) {
         this.email = email;
         this.password = password;
         this.nick = nick;
+        this.enabled = isEnabled;
     }
 
     public void addRole(Role role) {
