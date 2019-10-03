@@ -39,8 +39,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String registerNewUser(@Valid User user, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes
-                                 ) {
+                                  Model model, RedirectAttributes redirectAttributes) {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
@@ -60,6 +59,7 @@ public class RegisterController {
 
     }
 
+    // Z PALUCHA
     @GetMapping("/activate/{email}/{activationCode}")
     public String activate(@PathVariable String email, @PathVariable String activationCode) {
         Optional<User> user = userRepository.findByEmailAndActivationCode(email,activationCode);
@@ -74,13 +74,13 @@ public class RegisterController {
         return "redirect:/";
     }
 
-
+   // http://localhost:8080/activate/uazek2@wp.pl/ca78e501-85ac-4e2e-b97f-514cfff759ca
 
 }
 
 
 
-
+// jak gosc wejdzie w linka to tam mam ustawic nowe haslo!!!
 
 
 

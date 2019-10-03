@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+
 </head>
 <body>
 <form role="form" th:action="@{/register}" method="POST" th:object="${user}">
@@ -31,9 +31,7 @@
             <label for="password">Password</label>
             <input th:field="*{password}" type="password" id="password" name="password" placeholder="password">
         </div>
-        <div class="g-recaptcha" data-sitekey="6LcPsrsUAAAAAJaI8m3fmbEI7oImMPYaEL53Ybui">
 
-        </div>
         <div>
             <button type="submit">Register</button>
         </div>
@@ -42,7 +40,3 @@
 </body>
 </html>
 
-<!--
-
-# page key 6LcPsrsUAAAAAJaI8m3fmbEI7oImMPYaEL53Ybui
-# secret key 6LcPsrsUAAAAAK0O33nb_fww3qg08b67jzpqP657-->

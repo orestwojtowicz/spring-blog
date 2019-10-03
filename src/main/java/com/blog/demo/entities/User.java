@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -53,8 +53,12 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private boolean enabled = false;
 
+    @Column
+    private String resetPasswordToken;
 
     private String activationCode;
+
+
 
 
     // @OneToOne(mappedBy = "user")

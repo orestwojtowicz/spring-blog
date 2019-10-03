@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.Set;
  */
 @Slf4j
 @Component
+@Transactional
 public class LoadData implements CommandLineRunner {
     private final Logger logger = LoggerFactory.getLogger(CommandLineRunner.class);
 
@@ -52,7 +55,7 @@ public class LoadData implements CommandLineRunner {
     }
 
     // https://github.com/reljicd/spring-boot-blog/blob/master/src/main/java/com/reljicd/model/Post.java
-    String secret = "{bcrypt}" + encoder.encode("damian28");
+    String secret = "{bcrypt}" + encoder.encode("password");
     private Role newUserRole = new Role("ROLE_USER");
     private Role adminRole = new Role("ROLE_ADMIN");
     private Post newPost = new Post("Content of post");
@@ -106,8 +109,6 @@ public class LoadData implements CommandLineRunner {
 
         saveSinglePostToUser();
         saveNewUserEntity();
-
-
 
 
     }

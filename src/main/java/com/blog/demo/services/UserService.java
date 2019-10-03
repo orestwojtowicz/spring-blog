@@ -5,12 +5,15 @@ import com.blog.demo.repositories.RoleRepository;
 import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.utills.RandomPublicUserID;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by damiass on Oct, 2019
@@ -46,19 +49,44 @@ public class UserService {
         user.setPublicUserID(publicUserID);
         // change to true after activation
         user.setEnabled(false);
-
         user.setActivationCode(UUID.randomUUID().toString());
 
         emailSenderService.sendActivationEmail(user);
 
-
-        log.info("SAVING USER " + user.toString());
         userRepository.save(user);
-        log.info("User saved successfully " + user.toString());
 
 
         return user;
     }
+
+
+    //{bcrypt}$2a$10$fhDQHaKvtNa.BPjaa5a1/eayTZgjI2id2CJ9L.1mnCwMSZ/a7P5M6
+
+    public User setActivationCodeAndSendAndEmail(User user) {
+
+        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+        log.info("FINDING USER EMAIL " );
+        if (userEmail.isPresent())
+            //userEmail.get().setActivationCode(UUID.randomUUID().toString());
+        log.info("EMAIL FOUND " + userEmail.get().getEmail());
+        emailSenderService.sendActivationEmail(user);
+
+
+        User userrek = userEmail.get();
+        userrek.setResetPasswordToken(UUID.randomUUID().toString());
+        userrek.setEmail("user@gmail.com");
+        userRepository.save(userrek);
+
+        // userRepository.setUserById(user.getPassword(), "nowymajl@gmail.com");
+
+       // userRepository.resetUserPassword(userEmail.get().getPassword());
+        //userRepository.save(user);
+
+        log.info("RETURNING USER SERVICE OBJECT USER ");
+        return userrek;
+    }
+
+
 
     public void sendActivationEmail(User user) {
         emailSenderService.sendActivationEmail(user);
