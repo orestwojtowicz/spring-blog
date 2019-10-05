@@ -81,6 +81,7 @@ public class LoadData implements CommandLineRunner {
 
 
         userRepository.save(loginUser);
+        userRepository.save(newUser);
 
 
 
@@ -126,6 +127,7 @@ public class LoadData implements CommandLineRunner {
     }
     private void saveNewUserEntity() {
         userEntityService.registerNewUser(newUser);
+
 
     }
     private void setAndSaveDetailsForUser() {

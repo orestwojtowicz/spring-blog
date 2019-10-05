@@ -18,30 +18,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
    Optional<User> findByEmail(String email);
    Optional<User> findByEmailAndActivationCode(String email, String activationCode);
+   Optional<User> findByEmailAndResetPasswordToken(String email, String passwordToken);
 
+   User findByResetPasswordToken(String token);
 
-
-   @Transactional
-   @Modifying
-   @Query(value = "UPDATE User u set u.password = :password WHERE u.email = :email", nativeQuery = true)
-   default void resetUserPassword(@Param("password") String email) {
-
-   }
-
-   @Modifying
-   @Query("update User u set u.password = :password where u.email = :email")
-   void setUserById(@Param("password") String password);
 
 
 
    @Modifying
-   @Query("update User u set u.nick = :nick where u.email = :email")
-   void setNick(@Param("nick") String nick);
+   @Query("update User u set u.password = :password where u.id = :id")
+   void updatePassword(@Param("password") String password, @Param("id") Long id);
 
 
-  /* @Modifying
-   @Query("update UserEncryptionData u set u.salt = :salt where u.id = :id")
-   int setUserById(@Param("salt") String salt, @Param("id") Long id);*/
 
 
 

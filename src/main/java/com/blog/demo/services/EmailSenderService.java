@@ -23,7 +23,7 @@ public class EmailSenderService {
 
     private final SpringTemplateEngine springTemplateEngine;
     private final JavaMailSender javaMailSender;
-    private final String BASE_URL = "http://localhost:8080";
+    private final static String BASE_URL = "http://localhost:8080";
 
     public EmailSenderService(SpringTemplateEngine springTemplateEngine,
                               JavaMailSender javaMailSender) {

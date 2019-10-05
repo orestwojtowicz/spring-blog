@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -55,6 +56,9 @@ public class User implements UserDetails {
 
     @Column
     private String resetPasswordToken;
+
+    @Column
+    private String passwordForChange;
 
     private String activationCode;
 

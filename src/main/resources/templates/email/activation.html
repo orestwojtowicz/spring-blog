@@ -9,6 +9,6 @@
     <h1>Springit User Activation</h1>
     <p th:text="|Dear ${user.email}|">Dear Username</p>
     <p>Thank you for signing up for a free account with us at Springit. Please click on the link below to activate your account.</p>
-    <a th:href="${baseURL} + '/activate/' + ${user.getEmail()} + '/' + ${user.getActivationCode()}">Activate Account</a>
+    <a th:href="${baseURL} + '/activate/' + ${user.getEmail()} + '/' + ${user.getResetPasswordToken()}">Activate Account</a>
 </body>
 </html>

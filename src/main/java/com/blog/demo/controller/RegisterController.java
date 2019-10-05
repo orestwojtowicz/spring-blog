@@ -62,11 +62,13 @@ public class RegisterController {
     // Z PALUCHA
     @GetMapping("/activate/{email}/{activationCode}")
     public String activate(@PathVariable String email, @PathVariable String activationCode) {
+        // finding user with email and secret token
         Optional<User> user = userRepository.findByEmailAndActivationCode(email,activationCode);
+
         if( user.isPresent() ) {
             User newUser = user.get();
             newUser.setEnabled(true);
-           // newUser.setConfirmPassword(newUser.getPassword());
+
             userRepository.save(newUser);
             userService.sendWelcomeEmail(newUser);
             return "auth/activated";
@@ -80,7 +82,7 @@ public class RegisterController {
 
 
 
-// jak gosc wejdzie w linka to tam mam ustawic nowe haslo!!!
+
 
 
 

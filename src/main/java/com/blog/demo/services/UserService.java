@@ -40,6 +40,7 @@ public class UserService {
         this.emailSenderService = emailSenderService;
     }
 
+
     public User registerNewUser(User user) {
 
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
@@ -50,42 +51,30 @@ public class UserService {
         // change to true after activation
         user.setEnabled(false);
         user.setActivationCode(UUID.randomUUID().toString());
-
         emailSenderService.sendActivationEmail(user);
-
         userRepository.save(user);
-
-
         return user;
     }
 
-
-    //{bcrypt}$2a$10$fhDQHaKvtNa.BPjaa5a1/eayTZgjI2id2CJ9L.1mnCwMSZ/a7P5M6
+    /*
+    *  Method responsible for sending email message with reset password activation link
+    * Secret Token is genereted and saved to database, also token is used in activation link
+    * Token will be valid for 12 hours - See SpringSchedulingConfig.class for more details
+    * */
 
     public User setActivationCodeAndSendAndEmail(User user) {
 
         Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
-        log.info("FINDING USER EMAIL " );
-        if (userEmail.isPresent())
-            //userEmail.get().setActivationCode(UUID.randomUUID().toString());
-        log.info("EMAIL FOUND " + userEmail.get().getEmail());
-        emailSenderService.sendActivationEmail(user);
 
+        User returnUser = userEmail.get();
+        returnUser.setResetPasswordToken(UUID.randomUUID().toString()); // setting secret token
+        emailSenderService.sendActivationEmail(returnUser);
+        String newPassword = "{bcrypt}" + encoder.encode(user.getPassword()); // saving new password to database
+        returnUser.setPasswordForChange(newPassword);
+         userRepository.save(returnUser);
 
-        User userrek = userEmail.get();
-        userrek.setResetPasswordToken(UUID.randomUUID().toString());
-        userrek.setEmail("user@gmail.com");
-        userRepository.save(userrek);
-
-        // userRepository.setUserById(user.getPassword(), "nowymajl@gmail.com");
-
-       // userRepository.resetUserPassword(userEmail.get().getPassword());
-        //userRepository.save(user);
-
-        log.info("RETURNING USER SERVICE OBJECT USER ");
-        return userrek;
+        return returnUser;
     }
-
 
 
     public void sendActivationEmail(User user) {
