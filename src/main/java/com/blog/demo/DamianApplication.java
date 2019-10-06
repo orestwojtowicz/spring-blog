@@ -21,13 +21,4 @@ public class DamianApplication {
 		SpringApplication.run(DamianApplication.class, args);
 	}
 
-
-
-	/*@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-*/
-
-
 }

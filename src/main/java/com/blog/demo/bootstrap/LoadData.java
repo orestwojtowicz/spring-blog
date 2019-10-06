@@ -33,8 +33,7 @@ public class LoadData implements CommandLineRunner {
     private final PostRepository postRepository;
     private final UserDetailsRepository userDetailsRepository;
     private final CommentRepository commentRepository;
-
- private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
   // private final BCryptPasswordEncoder encoder;
 

@@ -6,9 +6,9 @@
     <title>Your Message Subject or Title</title>
 </head>
 <body>
-    <h1>Springit User Activation</h1>
+    <h1>Code Blog Reset Password</h1>
     <p th:text="|Dear ${user.email}|">Dear Username</p>
-    <p>Thank you for signing up for a free account with us at Springit. Please click on the link below to activate your account.</p>
-    <a th:href="${baseURL} + '/activate/' + ${user.getEmail()} + '/' + ${user.getResetPasswordToken()}">Activate Account</a>
+    <p>Your password will be change, after clicking below link</p>
+    <a th:href="${baseURL} + '/reset/' +  'password/' + ${user.getEmail()} + '/' + ${user.getResetPasswordToken()}">Reset Password</a>
 </body>
 </html>

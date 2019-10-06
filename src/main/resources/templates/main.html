@@ -4,40 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400|Open+Sans:700,700i,400i,400|Varela+Round:400">
+
 </head>
 <body>
-<nav>
-    <div class="logo">
-        <h4>CODE & SPORT BLOG</h4>
-    </div>
-    <ul class="nav-links">
-        <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
-        <li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Account</a></li>
-        <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
-        <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
-        <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
 
-        <li><a th:href="@{/post}" sec:authorize="hasRole('ADMIN')" >add post</a></li>
-    </ul>
-    <div class="burger">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-    </div>
-</nav>
 
-<section>
-    <div th:each="post : ${posts}">
-        <div>
-            <p th:text="'by ' + ${post.getUser().getNick()}"> </p>
+    <div class="title">
+        JAVA & SPORT BLOG
+    </div>
+    <div class="line-break">
+        <hr>
+    </div>
+
+    <nav>
+        <div class="logo">
+            <h4>MOJE LOGU</h4>
         </div>
-        <div>
-            <p th:text="${post.getPostContent()}"></p>
-            <p th:datetime="${post.creationDate}"></p>
+        <ul class="nav-links">
+            <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
+            <li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Account</a></li>
+            <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
+            <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
+            <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
+
+            <li><a th:href="@{/post}" sec:authorize="hasRole('ADMIN')" >add post</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
         </div>
+    </nav>
+
+    <div class="line-break-bottom">
+        <hr>
     </div>
 
-</section>
 
 </body>
 

@@ -68,7 +68,7 @@ public class UserService {
 
         User returnUser = userEmail.get();
         returnUser.setResetPasswordToken(UUID.randomUUID().toString()); // setting secret token
-        emailSenderService.sendActivationEmail(returnUser);
+        emailSenderService.sendResetPasswordEmail(returnUser);
         String newPassword = "{bcrypt}" + encoder.encode(user.getPassword()); // saving new password to database
         returnUser.setPasswordForChange(newPassword);
          userRepository.save(returnUser);

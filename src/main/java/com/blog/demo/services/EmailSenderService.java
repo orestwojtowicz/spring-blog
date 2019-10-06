@@ -42,13 +42,14 @@ public class EmailSenderService {
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
             message.setTo(to);
+            message.setFrom("noreply@blog.admin.com");
             message.setSubject(subject);
-            message.setText(content);
-
+            message.setText(content, isHtml);
+            javaMailSender.send(mimeMessage);
         } catch(Exception e) {
             log.info("ERROR SENDING MESSAGE " + e.getMessage());
         }
-        javaMailSender.send(mimeMessage);
+
     }
 
     @Async
@@ -63,8 +64,14 @@ public class EmailSenderService {
 
     @Async
     public void sendActivationEmail(User user) {
-        sendEmailFromTemplate(user, "email/activation", "Spring User Activation");
+        sendEmailFromTemplate(user, "email/activation", "Blog User Activation");
     }
+
+    @Async
+    public void sendResetPasswordEmail(User user) {
+        sendEmailFromTemplate(user, "email/reset", "Blog User Activation");
+    }
+
 
     @Async void sendWelcomeEmail(User user) {
         sendEmailFromTemplate(user, "email/welcome", "Welcome new Spring User");

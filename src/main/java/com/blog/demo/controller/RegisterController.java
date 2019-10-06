@@ -59,7 +59,7 @@ public class RegisterController {
 
     }
 
-    // Z PALUCHA
+
     @GetMapping("/activate/{email}/{activationCode}")
     public String activate(@PathVariable String email, @PathVariable String activationCode) {
         // finding user with email and secret token
