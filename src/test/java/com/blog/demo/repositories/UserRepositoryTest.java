@@ -46,6 +46,11 @@ class UserRepositoryTest {
         user.setResetPasswordToken("12323-44SAD123-dsf#@3432");
         user.setPassword("password");
 
+        assertAll("Test Properties Settings",
+                () -> assertEquals(user.getEmail(), "email@gmail.com")
+                // ...............
+                );
+
 
         userRepository.save(user);
         Optional<User> userr = userRepository.findByEmail("email@gmail.com");

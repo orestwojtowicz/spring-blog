@@ -3,6 +3,7 @@ package com.blog.demo.entities.validator.whiteSpaceValidator;
 import com.blog.demo.entities.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.*;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by damiass on Oct, 2019
  */
+@Tag("annotation")
 class WhiteSpaceValidatorTest {
 
 
