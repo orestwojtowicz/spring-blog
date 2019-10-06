@@ -68,6 +68,7 @@ public class RegisterController {
         if( user.isPresent() ) {
             User newUser = user.get();
             newUser.setEnabled(true);
+            newUser.setConfirmPassword(newUser.getPassword());
 
             userRepository.save(newUser);
             userService.sendWelcomeEmail(newUser);

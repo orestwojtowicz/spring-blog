@@ -1,3 +1,5 @@
+/*
+
 package com.blog.demo.bootstrap;
 
 import com.blog.demo.entities.*;
@@ -18,9 +20,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+
+*/
 /**
  * Created by damiass on Sep, 2019
- */
+ *//*
+
+
 @Slf4j
 @Component
 @Transactional
@@ -73,19 +79,23 @@ public class LoadData implements CommandLineRunner {
 
         BCryptPasswordEncoder loginEncoder = new BCryptPasswordEncoder();
         String passForLogin = "{bcrypt}" + loginEncoder.encode("password");
-        User loginUser = new User("admin@gmail.com", passForLogin, "bigos", true);
+        User loginUser = new User("admin@gmail.com", passForLogin,"bigos", true);
         roleRepository.save(adminRole);
         loginUser.addRole(adminRole);
 
+        newUser.setConfirmPassword(secret);
+
+        loginUser.setConfirmPassword(passForLogin);
 
 
         userRepository.save(loginUser);
         userRepository.save(newUser);
 
 
-
         saveNewUserEntity();
+
         setAndSaveDetailsForUser();
+        log.info("LOGIN USER ------------------------------------");
         addPostsToHashSetAndSaveThemInRepository();
         setNewPostToOneUserEntity();
 
@@ -144,3 +154,5 @@ public class LoadData implements CommandLineRunner {
     }
 
 }
+*/
+

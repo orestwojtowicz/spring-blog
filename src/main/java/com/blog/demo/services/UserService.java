@@ -45,6 +45,7 @@ public class UserService {
 
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
         user.setPassword(secret);
+        user.setConfirmPassword(secret);
         user.addRole(roleRepository.findByName("ROLE_USER"));
         String publicUserID = randomPublicUserID.generateRandomBytes();
         user.setPublicUserID(publicUserID);

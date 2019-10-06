@@ -2,23 +2,26 @@ package com.blog.demo.entities;
 
 
 
+import com.blog.demo.entities.validator.IPasswordMatch;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
  * Created by damiass on Sep, 2019
  */
+
 
 @ToString
 @Entity
@@ -26,10 +29,11 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @Table(name = "user")
+@IPasswordMatch
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
 
@@ -59,6 +63,10 @@ public class User implements UserDetails {
 
     @Column
     private String passwordForChange;
+
+    @Transient
+    @NotEmpty(message = "Please enter Password Confirmation")
+    private String confirmPassword;
 
     private String activationCode;
 

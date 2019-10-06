@@ -21,15 +21,20 @@
         </div>
         <div>
             <label for="email">Email</label>
-            <input th:field="*{email}" type="text" id="email" name="email" placeholder="your@email.com">
+            <input th:field="*{email}" type="text" id="email" name="email" placeholder="your@email.com" required>
         </div>
         <div>
             <label for="nick">user name</label>
-            <input th:field="*{nick}" type="text" id="nick" name="nick" placeholder="user name">
+            <input th:field="*{nick}" type="text" id="nick" name="nick" placeholder="user name" required>
         </div>
         <div>
             <label for="password">Password</label>
-            <input th:field="*{password}" type="password" id="password" name="password" placeholder="password">
+            <input th:field="*{password}" type="password" id="password" name="password" placeholder="password" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input th:field="*{confirmPassword}" type="password" id="confirmPassword"
+                   name="confirmPassword" placeholder="confirmPassword" required>
         </div>
 
         <div>
