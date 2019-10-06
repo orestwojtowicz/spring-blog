@@ -1,7 +1,5 @@
 package com.blog.demo.entities.validator.emailValidator;
 
-import com.blog.demo.entities.validator.passwordValidator.PasswordMatchValidator;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;

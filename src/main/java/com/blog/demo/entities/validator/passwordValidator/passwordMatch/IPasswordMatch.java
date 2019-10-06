@@ -1,4 +1,4 @@
-package com.blog.demo.entities.validator.passwordValidator;
+package com.blog.demo.entities.validator.passwordValidator.passwordMatch;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

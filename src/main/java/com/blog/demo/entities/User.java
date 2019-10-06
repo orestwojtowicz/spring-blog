@@ -4,7 +4,9 @@ package com.blog.demo.entities;
 
 
 import com.blog.demo.entities.validator.emailValidator.IEmailPattern;
-import com.blog.demo.entities.validator.passwordValidator.IPasswordMatch;
+import com.blog.demo.entities.validator.passwordValidator.passwordMatch.IPasswordMatch;
+
+import com.blog.demo.entities.validator.passwordValidator.passwordStrength.IPasswordStrength;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,6 +52,7 @@ public class User implements UserDetails {
 
     @NotNull
     @Column(length = 100)
+    @IPasswordStrength
     private String password;
 
     @NotNull
