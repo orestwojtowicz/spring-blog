@@ -1,6 +1,8 @@
 package com.blog.demo.services;
 
 import com.blog.demo.controller.RegisterController;
+import com.blog.demo.entities.User;
+import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.utills.RandomPublicUserID;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,8 +29,12 @@ class UserServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private UserRepository userRepository;
 
-    RandomPublicUserID randomPublicUserID = new RandomPublicUserID();
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+
 
 
     @Test
@@ -37,7 +46,30 @@ class UserServiceTest {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("email", "test@gmail.com")
                         .param("nick", "kaktus")
-                        .param("password", "password")
-                ).andExpect(status().is3xxRedirection());
+                        .param("password", "Password300!@#")
+                        .param("confirmPassword", "Password300!@#")
+                ).andExpect(status().is2xxSuccessful());
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
