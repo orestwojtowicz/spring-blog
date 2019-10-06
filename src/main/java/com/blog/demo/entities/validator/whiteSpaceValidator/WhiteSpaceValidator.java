@@ -1,5 +1,9 @@
 package com.blog.demo.entities.validator.whiteSpaceValidator;
 
+
+
+
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -11,8 +15,13 @@ public class WhiteSpaceValidator implements ConstraintValidator<IWhiteSpace, Str
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
 
-        return s.isEmpty();
+        if (s.contains(" ") || Character.isDigit(s.charAt(0))) return false;
+
+        return true;
     }
+
+
+
 
     @Override
     public void initialize(IWhiteSpace constraintAnnotation) {
