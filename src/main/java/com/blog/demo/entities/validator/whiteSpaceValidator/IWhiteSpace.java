@@ -15,7 +15,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = WhiteSpaceValidator.class)
 public @interface IWhiteSpace {
 
-    String message() default "Please remove white space in your nick";
+    String message() default "Please remove white space in your user name";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
