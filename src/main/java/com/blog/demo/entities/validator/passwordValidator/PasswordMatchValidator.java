@@ -1,4 +1,4 @@
-package com.blog.demo.entities.validator;
+package com.blog.demo.entities.validator.passwordValidator;
 
 import com.blog.demo.entities.User;
 

@@ -1,5 +1,6 @@
 package com.blog.demo;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -21,4 +22,9 @@ public class DamianApplication {
 		SpringApplication.run(DamianApplication.class, args);
 	}
 
+
+	@Bean
+	PrettyTime prettyTime() {
+		return new PrettyTime();
+	}
 }

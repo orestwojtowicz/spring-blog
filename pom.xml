@@ -76,12 +76,7 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+
 
 		<!-- H2 dependency  -->
 
@@ -156,7 +151,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-actuator</artifactId>
 			<version>2.1.6.RELEASE</version>
+			<scope>runtime</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+				</dependency>
+
 
 		<!-- SECURITY -->
 		<dependency>
@@ -164,6 +167,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>2.1.7.RELEASE</version>
 		</dependency>
+
 
 
 		<dependency>
