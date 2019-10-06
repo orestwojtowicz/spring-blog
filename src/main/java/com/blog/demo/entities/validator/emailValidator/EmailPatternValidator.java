@@ -19,6 +19,9 @@ public class EmailPatternValidator implements ConstraintValidator<IEmailPattern,
 
     @Override
     public boolean isValid(User user, ConstraintValidatorContext constraintValidatorContext) {
+
+        if(Character.isDigit(user.getEmail().charAt(0))) return false;
+
         Matcher matcher = pattern.matcher(user.getEmail());
         return matcher.matches();
     }

@@ -51,7 +51,6 @@ class PasswordMatchValidatorTest {
     // not strong password used in this case - test fail
     @Test
     void passwordStrengthFailTest() {
-        // User user = new User();
         user.setPassword("password");
         user.setConfirmPassword("password");
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "password");
