@@ -7,13 +7,20 @@
 <body>
 <h1>POST CREATOR :></h1>
 
-    <form role="form" th:action="@{/post}" method="POST" th:object="${post}">
+   <!-- <form role="form" th:action="@{/post}" method="POST" th:object="${post}">
         <div>
             <h1>Title</h1>
             <textarea th:field="*{postContent}"></textarea>
             <button type="submit">ADD POST</button>
         </div>
-    </form>
+    </form>-->
+
+<form method="post" enctype="multipart/form-data" action="/fileupload">
+
+    <input type="text" name="name" required>
+    <input type="file" name="file" required>
+    <input type="submit">
+</form>
 
 
 </body>

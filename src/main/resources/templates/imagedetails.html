@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Details are given below:</h1><hr>
+<table >
+    <tr>
+        <td>Id</td>
+        <td>${id}</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>${name}</td>
+    </tr>
+    <tr>
+        <td>Image</td>
+
+        <img th:src="*{'data:image/jpg;base64,'+image}" alt="" />
+
+    </tr>
+</table>
+</body>
+</html>

@@ -6,7 +6,9 @@ import com.blog.demo.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +33,9 @@ public class LoadDataFixed implements CommandLineRunner  {
     private final UserDetailsRepository userDetailsRepository;
     private final CommentRepository commentRepository;
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     // private final BCryptPasswordEncoder encoder;
 
@@ -90,21 +95,17 @@ public class LoadDataFixed implements CommandLineRunner  {
 
         commentRepository.saveAll(comments);
         postRepository.saveAll(userPosts);
-       // userEntityService.registerNewUser(admin);
+        // userEntityService.registerNewUser(admin);
 
 
-       // commentRepository.delete(firstComment);
+        // commentRepository.delete(firstComment);
 
 
-      //  postRepository.delete(adminPost);
+        //  postRepository.delete(adminPost); http://www.javadream.in/how-to-upload-file-in-spring-boot-using-form/
 
-      Optional<Post> post =  postRepository.findById(5L);
+        Optional<Post> post = postRepository.findById(5L);
 
-      //postRepository.delete(post.get());
-
-      commentRepository.delete(firstComment);
-
-
+        //postRepository.delete(post.get());
 
     }
 }

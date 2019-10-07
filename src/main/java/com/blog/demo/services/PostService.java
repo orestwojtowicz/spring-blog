@@ -6,7 +6,11 @@ import com.blog.demo.entities.User;
 import com.blog.demo.repositories.PostRepository;
 import com.blog.demo.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -44,6 +48,7 @@ public class PostService {
         userRepository.save(userEmail.get());
         return post;
     }
+
 
 
 

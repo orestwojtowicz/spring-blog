@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class Post extends Auditable {
 
     @Column
     private String postContent;
+
 
     @ToString.Exclude
     @ManyToOne
