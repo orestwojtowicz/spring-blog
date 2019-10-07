@@ -98,9 +98,11 @@ public class LoadDataFixed implements CommandLineRunner  {
 
       //  postRepository.delete(adminPost);
 
-      Optional<Post> post =  postRepository.findById(4L);
+      Optional<Post> post =  postRepository.findById(5L);
 
-      postRepository.delete(post.get());
+      //postRepository.delete(post.get());
+
+      commentRepository.delete(firstComment);
 
 
 

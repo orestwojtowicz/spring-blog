@@ -32,7 +32,7 @@ public class Post extends Auditable {
     private User user;
 
     @ToString.Exclude
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "post")
     private Set<Comment> comments = new HashSet<>();
 

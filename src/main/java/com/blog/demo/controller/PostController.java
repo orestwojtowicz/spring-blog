@@ -23,6 +23,11 @@ public class PostController {
         this.postService = postService;
     }
 
+    @GetMapping("/read/post")
+    public String loadPostToRead() {
+        return "readpost";
+    }
+
 
     @GetMapping("/post")
     public String loadPostPage(Model model) {
