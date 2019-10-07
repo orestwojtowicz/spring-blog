@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -86,6 +86,15 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     // @JoinColumn(unique = true)
     private UserDetail userDetail;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user",  cascade = CascadeType.REMOVE)
+    private Set<Post> posts = new HashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
 
 
     @ToString.Exclude
@@ -170,3 +179,24 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 }
+
+/*
+*  GenerationType.AUTO default
+*
+* */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
