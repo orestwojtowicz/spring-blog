@@ -25,7 +25,10 @@ public class Post extends Auditable {
     private Long id;
 
     @Column
+    @Lob
     private String postContent;
+
+    // add post title
 
 
     @ToString.Exclude

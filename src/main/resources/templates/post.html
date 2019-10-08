@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Post</title>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
 </head>
 <body>
 <h1>POST CREATOR :></h1>
@@ -15,13 +17,19 @@
         </div>
     </form>-->
 
+
+
+<form method="post" th:object="${post}" role="form" th:action="@{/post}">
+
+    <textarea style="resize: both;" th:field="*{postContent}" type="text"></textarea>
+    <button type="submit">ADD POST</button>
+</form>
+
+
 <form method="post" enctype="multipart/form-data" action="/fileupload">
 
     <input type="text" name="name" required>
     <input type="file" name="file" required>
     <input type="submit">
 </form>
-
-
 </body>
-</html>

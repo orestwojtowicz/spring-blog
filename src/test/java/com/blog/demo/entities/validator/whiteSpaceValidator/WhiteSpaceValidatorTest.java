@@ -1,10 +1,9 @@
 package com.blog.demo.entities.validator.whiteSpaceValidator;
 
 import com.blog.demo.entities.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.validation.*;
 import javax.validation.constraints.NotNull;
@@ -38,17 +37,18 @@ class WhiteSpaceValidatorTest {
     * */
 
 
-    @Test
-    void whiteSpaceBeforeUserNameTest() {
-    user.setNick("   wrongNick");
 
+    @DisplayName("White Character Test")
+    @ParameterizedTest(name = " {displayName} - [{index}] {arguments}")
+    @ValueSource(strings = {"    wrongNick", "   againwrong", "       wrong"})
+    void whiteSpaceBeforeUserNameTest(String wrongNick) {
+    user.setNick(wrongNick);
        Set<ConstraintViolation<String>> constraintValidators = validator.validate(user.getNick());
-
         constraintValidators.forEach(System.out::print);
         Set<ConstraintViolation<User>> constraintViolations = validator.validateProperty(user, "nick");
-      assertEquals("Please remove white space in your user name and user name must start with character",
-              constraintViolations.iterator().next().getMessage());
-        assertEquals(1, constraintViolations.size());
+        assertEquals("Please remove white space in your user name and user name must start with character",
+                constraintViolations.iterator().next().getMessage());
+         assertEquals(1, constraintViolations.size());
 
     }
     @Test

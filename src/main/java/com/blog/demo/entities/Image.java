@@ -1,10 +1,15 @@
 package com.blog.demo.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 /**
  * Created by damiass on Oct, 2019
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "image")
 public class Image {
@@ -19,9 +24,9 @@ public class Image {
     @Column(name = "Name")
     private String name;
 
-    @Lob
+    @Lob // for storing large text objects
     @Column(name = "Image")
-    private byte[] image;
+    private byte[] image; // store image as byte array
 
     public Image() {
 
@@ -30,27 +35,6 @@ public class Image {
         this.name = name;
         this.image = image;
     }
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public byte[] getImage() {
-        return image;
-    }
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-
-
 
 
 }

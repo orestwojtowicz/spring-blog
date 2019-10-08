@@ -39,6 +39,17 @@
 
 
 
+		<!-- PARAMETRIZED TEST
+			This is experimental feature for Junit 5
+		-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit-platform.version}</version>
+		</dependency>
+
+
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,11 +127,6 @@
 			<artifactId>javax.el</artifactId>
 			<version>3.0.1-b09</version>
 		</dependency>
-
-
-
-
-
 
 
 		<dependency>
@@ -212,6 +218,12 @@
 		</dependency>
 
 
+		<!-- HTML parser -->
+		<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-text</artifactId>
+		<version>1.4</version>
+	</dependency>
 
 
 

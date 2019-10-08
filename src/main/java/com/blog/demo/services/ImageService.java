@@ -15,24 +15,30 @@ import java.util.Optional;
 @Slf4j
 public class ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
+
+    public ImageService(ImageRepository imageRepository) {
+            this.imageRepository = imageRepository;
+    }
 
 
-    public int saveImage(Image model) {
+
+
+
+
+    public int saveImage(Image image) {
         try {
-            imageRepository.save(model);
+            imageRepository.save(image);
             return 1;
         } catch (Exception e) {
-            log.info("BLAD W SERWISIE " + e.getMessage());
+            log.info("error while saving image " + e.getMessage());
             return 0;
         }
     }
-    public Image getImages(Long id) {
-        Optional findById = imageRepository.findById(id);
+    public Image getImage(Long id) {
+        Optional<Image> findById = imageRepository.findById(id);
         if (findById.isPresent()) {
-            Image getImageDetails = (Image) findById.get();
-
+            Image getImageDetails =  findById.get();
             return getImageDetails;
         } else {
             return null;
