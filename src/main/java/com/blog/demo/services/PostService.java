@@ -40,7 +40,7 @@ public class PostService {
     }
 
     public Post addNewPost(Post post) {
-        post.setCreatedBy("ADMIN :>");
+        post.setCreatedBy("ADMIN");
         Optional<User> userEmail =  userRepository.findByEmail("admin@gmail.com"); // CHANGE IT IN PRODUCTION
         postRepository.save(post);
         userPosts.add(post);

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+</head>
+<body>
+<div class="formContainer">
+    <form role="form" th:action="@{/register}" method="POST" th:object="${user}">
+        <fieldset>
+           <div class="errors">
+                <span>
+                    <ul th:each="error : ${validationErrors}">
+                      <li th:text="${error.getDefaultMessage()}"></li>
+                    </ul>
+                  </span>
+            </div>
+            <div class="input-fields">
+                <label for="email">Email</label>
+                <input th:field="*{email}" type="text" id="email" name="email" placeholder="your@email.com" required>
+                <label for="nick">user name</label>
+                <input th:field="*{nick}" type="text" id="nick" name="nick" placeholder="user name" required>
+                <label for="password">Password</label>
+                <input th:field="*{password}" type="password" id="password" name="password" placeholder="password" required>
+                <label for="confirmPassword" >Confirm Password</label>
+                <input th:field="*{confirmPassword}" type="password" id="confirmPassword"
+                       name="confirmPassword" placeholder="confirm password" required>
+
+
+
+            </div>
+            <div class="login-button">
+                <button type="submit" >Register</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
+

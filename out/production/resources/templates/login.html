@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+<body>
+
+<div class="formContainer">
+    <form role="form" th:action="@{/login}" method="POST" >
+        <fieldset>
+            <div th:if="${param.error}">
+                Invalid user name
+            </div>
+            <div th:if="${param.logout}">
+                You have been log out
+            </div>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="input-fields">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="your@email.com">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="password">
+            </div>
+            <div class="login-button">
+                <button type="submit" >Log in</button>
+            </div>
+            <div>
+                <a th:href="@{/reset/password}">Forgot Password?</a>
+            </div>
+
+        </fieldset>
+
+    </form>
+</div>
+
+
+
+</body>
+</html>

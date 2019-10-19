@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <div>Player avatar</div>
+
+
+
+        <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>
+
+        <div>INNA PROBA </div>
+            <p th:text="${userName}"></p>
+            <p th:text="${nick}"></p>
+            <p th:text="${nick}"></p>
+       <!--     <time th:datetime="${userName.getC}"> TIME </time>-->
+
+
+</body>
+</html>
