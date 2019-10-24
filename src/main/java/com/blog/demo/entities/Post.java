@@ -29,6 +29,8 @@ public class Post extends Auditable {
     private String postContent;
 
     // add post title
+    @Column
+    private String postTitle;
 
 
     @ToString.Exclude
@@ -48,8 +50,9 @@ public class Post extends Auditable {
         this.comments = comments;
     }
 
-    public Post(String postContent) {
+    public Post(String postContent, String postTitle) {
         this.postContent = postContent;
+        this.postTitle = postTitle;
     }
 
 

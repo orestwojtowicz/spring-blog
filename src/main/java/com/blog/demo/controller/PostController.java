@@ -77,24 +77,12 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String getSinglePost(Model model, @PathVariable Long id) {
         Optional<Post> getPost = postRepository.findById(id);
-
-
-
         String postContent = (getPost.get().getPostContent());
-
-
-
+        model.addAttribute("posts", postService.findAll());
         model.addAttribute("postContent", postContent);
-
 
         return "readpost";
     }
-
-
-
-
-
-
 
     // UPLOAD AND GET IMAGE
     @PostMapping("/fileupload")
@@ -105,7 +93,7 @@ public class PostController {
             Image model = new Image(name, image);
             int saveImage = imageService.saveImage(model);
             if (saveImage == 1) {
-                return "success";
+                return "post/success";
             } else {
                 return "error";
             }
@@ -120,9 +108,7 @@ public class PostController {
         try {
 
             Image imagesObj = imageService.getImage(id); // getting image
-           // model.addAttribute("id", imagesObj.getId());
             model.addAttribute("name", imagesObj.getName());
-
             byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
             model.addAttribute("image", new String(encode, "UTF-8"));
 
