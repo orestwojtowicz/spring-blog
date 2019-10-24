@@ -41,6 +41,7 @@ public class ImageService {
             Image getImageDetails =  findById.get();
             return getImageDetails;
         } else {
+
             return null;
         }
     }

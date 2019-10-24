@@ -96,8 +96,6 @@ public class PostController {
 
 
 
-
-
     // UPLOAD AND GET IMAGE
     @PostMapping("/fileupload")
     public String fileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
