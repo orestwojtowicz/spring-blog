@@ -43,7 +43,8 @@
         <hr>
     </div>
 
-   <!-- POST SECTION     https://stackoverflow.com/questions/48235379/how-to-display-byte-array-from-a-model-in-thymeleaf?rq=1 />-->
+   <!-- POST SECTION         <img th:src="*{'data:image/jpg;base64,'+ post.getImage().getImageString()}" alt="#" />-->
+    <!-- <img th:src="@{'image/{id}' + @{post.image()}}" alt="#"  https://stackoverflow.com/questions/48235379/how-to-display-byte-array-from-a-model-in-thymeleaf?rq=1 />-->>-->
 
     <div class="content clearfix" >
         <!-- Main Content-->
@@ -51,8 +52,8 @@
         <div class="main-content" >
 
             <div class="post" th:each="post : ${posts}">
-                <img th:src="*{'data:image/jpg;base64,'+ image}" alt="#" />
                 <div class="post-preview">
+                    <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}" alt="#"/>
                     <h2><a href="#" th:text="${post.getPostTitle()}"></a></h2>
                     <i class="fas fa-user">Orestoo</i>
                     &nbsp;<i class="fas fa-calendar">Mar 11, 2019</i>

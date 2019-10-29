@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
@@ -39,6 +40,7 @@ public class HomeController {
     private final ImageRepository imageRepository;
 
 
+
     public HomeController(PostService postService, PostRepository postRepository,
                           ImageService imageService, ImageRepository imageRepository) {
         this.postService = postService;
@@ -49,61 +51,42 @@ public class HomeController {
 
 
 //https://stackoverflow.com/questions/48235379/how-to-display-byte-array-from-a-model-in-thymeleaf?rq=1
-/*    @ModelAttribute("/images")
+     @GetMapping("image/{id}")
     public void getImageDetails(@PathVariable Long id, HttpServletResponse response) throws IOException {
 
         response.setContentType("image/jpeg");
-        Image image = imageService.getImage(id);
-
-
+         Image image = imageService.getImage(id);
         InputStream is = new ByteArrayInputStream(image.getImage());
-        log.info("IMAGE BYTE ARRAY " + is);
-        IOUtils.toByteArray(is);
-
-    }*/
+        IOUtils.copy(is, response.getOutputStream());
+        //IOUtils(is, response.getOutputStream());
+    }
 
 
     @GetMapping("/")
     public String mainPage(Model model) {
         model.addAttribute("posts", postService.findAll());
 
-
-
-        byte[] arr = new byte[127];
-        List<Post> posts = postService.findAll();
-     //   byte[] encodeImage = Base64.getEncoder().encode(arr);
-         byte[] encodeImage = new byte[127];
-
-      for(Post post : posts) {
-          if (post.getTestImage() != null) {
-           arr = post.getTestImage();
-           encodeImage = Base64.getEncoder().encode(post.getTestImage());
-           }
-
-      }
-
-
-      try {
-          model.addAttribute("image", new String(encodeImage, "UTF-8"));
-      } catch (UnsupportedEncodingException e) {
-          e.printStackTrace();
-      }
+       /* List<Post> posts = postService.findAll();
+        for(Post post : posts) {
+            if (post != null) {
+                log.info("POST IMAGE " + post.getImage().getImageString());
+            }
+        }*/
 
 
 
-        log.info("TO JEST TO " + Arrays.toString(arr));
-        log.info("SIZE ++ " + arr.length);
-        log.info("SIZE POSTS " + posts.size());
-        log.info("POST FIND ALL " + postService.findAll());
         return "main";
+
     }
+
+
+
+
 
     @GetMapping("/login")
-    public String login() {
+    public String login () {
         return "login";
     }
-
-
 }
 /*    @GetMapping("/image/{id}")
     public String getImageDetails(@PathVariable Long id, Model model) {
@@ -120,16 +103,32 @@ public class HomeController {
             model.addAttribute("message", "Error in getting image");
             return "redirect:/";
         }
-    }*/
+    }                 */
 
 
 
 
 
+/*
+
+    List<Post> posts = postService.findAll();
+
+    byte[] arr = new byte[127];
+        for(Post post : posts) {
+                if (post.getImage() != null) {
+                for(int i = 0; i< posts.size(); i++) {
+        arr = post.getImage().getImage();
+        }
+        }
+        }
+
+
+        log.info("PRINT");
+        log.info(Arrays.toString(arr));
 
 
 
-
+*/
 
 
 

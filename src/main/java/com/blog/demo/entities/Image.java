@@ -26,6 +26,10 @@ public class Image {
     @Column(name = "Image")
     private byte[] image; // store image as byte array
 
+    @Lob
+    @Column
+    private String imageString;
+
 
 
     public Image() {

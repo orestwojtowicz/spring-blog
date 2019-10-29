@@ -40,14 +40,14 @@ public class Post extends Auditable {
     //@NotNull
     private User user;
 
-    /*@OneToOne
+    @OneToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     @ToString.Exclude
-    private Image image;*/
+    private Image image;
 
-    @Lob
+  /*  @Lob
     @Column
-    private byte[] testImage;
+    private byte[] testImage;*/
 
 
     @ToString.Exclude

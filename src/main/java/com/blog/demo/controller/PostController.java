@@ -81,9 +81,15 @@ public class PostController {
             int saveImage = imageService.saveImage(model);
             if (saveImage == 1) {
                 log.info("Setting Image To Post ");
-              //  newPost.setImage(model);
-                newPost.setTestImage(image);
+               newPost.setImage(model);
+              //  newPost.setTestImage(image);
                 newPost.setCreationDate(LocalDateTime.now());
+
+                    byte[] encodeBase64 = Base64.getEncoder().encode(image);
+                    String s = new String(encodeBase64, "UTF-8");
+
+
+                newPost.getImage().setImageString(s);
 
                 postRepository.save(newPost);
                 return "post/success";
