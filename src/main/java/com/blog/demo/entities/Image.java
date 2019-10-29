@@ -14,12 +14,10 @@ import javax.persistence.*;
 @Table(name = "image")
 public class Image {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    private long id;
+    private Long id;
 
     @Column(name = "Name")
     private String name;
@@ -27,6 +25,8 @@ public class Image {
     @Lob // for storing large text objects
     @Column(name = "Image")
     private byte[] image; // store image as byte array
+
+
 
     public Image() {
 

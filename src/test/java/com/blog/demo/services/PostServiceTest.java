@@ -50,8 +50,8 @@ class PostServiceTest {
 
     @BeforeEach
     void setUp() {
-        first = new Post("Content");
-        second = new Post("Second Content");
+        first = new Post("Content", "title");
+        second = new Post("Second Content", "title2");
         posts = new ArrayList<>();
         posts.add(first);
         posts.add(second);
@@ -77,8 +77,6 @@ class PostServiceTest {
     @Test
     @DisplayName("Add new post")
     void addNewPost() {
-
-
 
         // given
         Optional<User> findByEmail = userRepository.findByEmail(adminUser.getEmail());

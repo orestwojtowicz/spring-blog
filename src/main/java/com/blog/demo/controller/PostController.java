@@ -21,6 +21,7 @@ import org.springframework.web.util.HtmlUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class PostController {
     private final PostService postService;
     private final PostRepository postRepository;
     private final ImageService imageService;
+    private LocalDateTime localDateTime;
 
     public PostController(PostService postService,PostRepository postRepository,
                           ImageService imageService) {
@@ -55,6 +57,46 @@ public class PostController {
         return "post";
     }
 
+
+
+    // GET SINGLE POST
+    @GetMapping("/post/{id}")
+    public String getSinglePost(Model model, @PathVariable Long id) {
+        Optional<Post> getPost = postRepository.findById(id);
+        String postContent = (getPost.get().getPostContent());
+        model.addAttribute("posts", postService.findAll());
+        model.addAttribute("postContent", postContent);
+
+        return "readpost";
+    }
+
+    // UPLOAD AND GET IMAGE, need refactoring
+    @PostMapping("/fileupload")
+    public String fileUpload(@RequestParam("name") String name,
+                             @RequestParam("file") MultipartFile file, @Valid Post post, Model postModel) {
+        try {
+            Post newPost = postService.addNewPost(post);
+            byte[] image = file.getBytes();
+            Image model = new Image(name, image);
+            int saveImage = imageService.saveImage(model);
+            if (saveImage == 1) {
+                log.info("Setting Image To Post ");
+              //  newPost.setImage(model);
+                newPost.setTestImage(image);
+                newPost.setCreationDate(LocalDateTime.now());
+
+                postRepository.save(newPost);
+                return "post/success";
+            } else {
+                return "error";
+            }
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return "error";
+        }
+    }
+
+    // old, delete probably
     @PostMapping("/post")
     public String addNewPost(@Valid Post post, BindingResult bindingResult,
                              Model model, RedirectAttributes redirectAttributes) {
@@ -73,40 +115,11 @@ public class PostController {
         return "redirect:/post";
     }
 
-    // GET SINGLE POST
-    @GetMapping("/post/{id}")
-    public String getSinglePost(Model model, @PathVariable Long id) {
-        Optional<Post> getPost = postRepository.findById(id);
-        String postContent = (getPost.get().getPostContent());
-        model.addAttribute("posts", postService.findAll());
-        model.addAttribute("postContent", postContent);
 
-        return "readpost";
-    }
-
-    // UPLOAD AND GET IMAGE
-    @PostMapping("/fileupload")
-    public String fileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) {
-        try {
-
-            byte[] image = file.getBytes();
-            Image model = new Image(name, image);
-            int saveImage = imageService.saveImage(model);
-            if (saveImage == 1) {
-                return "post/success";
-            } else {
-                return "error";
-            }
-        } catch (Exception e) {
-            log.info("BLAD W KONTROLERZE " + e.getMessage());
-            return "error";
-        }
-    }
-
-    @GetMapping("/image/{id}")
+/*    @GetMapping("/image/{id}")
     public String getImageDetails(@PathVariable Long id, Model model) {
         try {
-
+    <img th:src="*{'data:image/jpg;base64,'+image}" alt="" />
             Image imagesObj = imageService.getImage(id); // getting image
             model.addAttribute("name", imagesObj.getName());
             byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
@@ -118,7 +131,7 @@ public class PostController {
             model.addAttribute("message", "Error in getting image");
             return "redirect:/";
         }
-    }
+    }*/
 
 
 }

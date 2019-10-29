@@ -19,15 +19,15 @@
 
 
 
-<form method="post" th:object="${post}" role="form" th:action="@{/post}">
+<!--<form method="post" th:object="${post}" role="form" th:action="@{/post}">
 
     <textarea style="resize: both;" th:field="*{postContent}" type="text"></textarea>
     <button type="submit">ADD POST</button>
-</form>
+</form>-->
 
 
-<form method="post" enctype="multipart/form-data" action="/fileupload">
-
+<form method="post" enctype="multipart/form-data" action="/fileupload" th:object="${post}">
+    <textarea style="resize: both;" th:field="*{postContent}" type="text"></textarea>
     <input type="text" name="name" required>
     <input type="file" name="file" required>
     <input type="submit">

@@ -76,9 +76,11 @@ public class LoadDataFixed implements CommandLineRunner  {
     @Override
     public void run(String... args) throws Exception {
 
-        String adminPassword = "{bcrypt}" + secret.encode("Password28@");
+        String adminPassword = "{bcrypt}" + secret.encode("Password28");
 
         User admin = new User("admin@gmail.com", adminPassword, "bigos", true);
+        admin.setUserDetail(adminDetails);
+
         roleRepository.save(adminRole);
 
         admin.setConfirmPassword(adminPassword);
@@ -90,7 +92,7 @@ public class LoadDataFixed implements CommandLineRunner  {
 
         comments.add(firstComment);
         comments.add(secondComment);
-        userPosts.add(adminPost);
+     userPosts.add(adminPost);
 
         commentRepository.saveAll(comments);
         postRepository.saveAll(userPosts);
@@ -104,11 +106,11 @@ public class LoadDataFixed implements CommandLineRunner  {
         adminPost.setComments(comments);
 
         commentRepository.saveAll(comments);
-        postRepository.saveAll(userPosts);
-        postRepository.save(adminPost2);
-        postRepository.save(adminPost3);
-        postRepository.save(adminPost4);
-        postRepository.save(adminPost5);
+        //postRepository.saveAll(userPosts);
+        //postRepository.save(adminPost2);
+        //postRepository.save(adminPost3);
+        //postRepository.save(adminPost4);
+        //postRepository.save(adminPost5);
         // userEntityService.registerNewUser(admin);
         // commentRepository.delete(firstComment);
         //  postRepository.delete(adminPost); http://www.javadream.in/how-to-upload-file-in-spring-boot-using-form/

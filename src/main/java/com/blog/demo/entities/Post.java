@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 import java.util.HashSet;
@@ -38,6 +39,16 @@ public class Post extends Auditable {
     @JoinColumn(name="user_entity_id")
     //@NotNull
     private User user;
+
+    /*@OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @ToString.Exclude
+    private Image image;*/
+
+    @Lob
+    @Column
+    private byte[] testImage;
+
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.REMOVE)
