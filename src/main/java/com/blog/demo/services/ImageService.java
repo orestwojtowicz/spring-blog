@@ -22,10 +22,6 @@ public class ImageService {
     }
 
 
-
-
-
-
     public int saveImage(Image image) {
         try {
             imageRepository.save(image);

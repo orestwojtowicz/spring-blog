@@ -1,6 +1,7 @@
 package com.blog.demo.services;
 
 
+import com.blog.demo.entities.Image;
 import com.blog.demo.entities.Post;
 import com.blog.demo.entities.User;
 import com.blog.demo.repositories.PostRepository;
@@ -8,14 +9,13 @@ import com.blog.demo.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * Created by damiass on Sep, 2019
@@ -26,12 +26,14 @@ public class PostService {
     private PostRepository postRepository;
     private UserRepository userRepository;
     private Set<Post> userPosts = new HashSet<>();
+    private ImageService imageService;
 
 
 
-    public PostService(PostRepository postRepository,UserRepository userRepository) {
+    public PostService(PostRepository postRepository,UserRepository userRepository, ImageService imageService) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.imageService = imageService;
     }
 
 
@@ -50,6 +52,35 @@ public class PostService {
         userRepository.save(userEmail.get());
         return post;
     }
+
+
+    public int saveImageToPost(String name, MultipartFile file, Post post) {
+
+        Post newPost = addNewPost(post);
+
+        try {
+            byte[] image = file.getBytes();
+            Image model = new Image(name, image);
+            int saveImage = imageService.saveImage(model);
+
+            if (saveImage == 1)
+
+            newPost.setImage(model);
+            newPost.setCreationDate(LocalDateTime.now());
+            newPost.setCreatedBy("Orestoo");
+            byte[] encodingImage = Base64.getEncoder().encode(image);
+            String saveEncodedString = new String(encodingImage, "UTF-8");
+            newPost.getImage().setImageString(saveEncodedString);
+            postRepository.save(newPost);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return 1;
+
+    }
+
 
 
 

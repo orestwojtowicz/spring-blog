@@ -58,7 +58,6 @@ public class PostController {
     }
 
 
-
     // GET SINGLE POST
     @GetMapping("/post/{id}")
     public String getSinglePost(Model model, @PathVariable Long id) {
@@ -70,74 +69,20 @@ public class PostController {
         return "readpost";
     }
 
-    // UPLOAD AND GET IMAGE, need refactoring
+
+    // upload whole post content, postService.saveImageToPost return 1, if post added
     @PostMapping("/fileupload")
     public String fileUpload(@RequestParam("name") String name,
-                             @RequestParam("file") MultipartFile file, @Valid Post post, Model postModel) {
-        try {
-            Post newPost = postService.addNewPost(post);
-            byte[] image = file.getBytes();
-            Image model = new Image(name, image);
-            int saveImage = imageService.saveImage(model);
-            if (saveImage == 1) {
-                log.info("Setting Image To Post ");
-               newPost.setImage(model);
-              //  newPost.setTestImage(image);
-                newPost.setCreationDate(LocalDateTime.now());
-
-                    byte[] encodeBase64 = Base64.getEncoder().encode(image);
-                    String s = new String(encodeBase64, "UTF-8");
+                             @RequestParam("file") MultipartFile file, @Valid Post post) {
 
 
-                newPost.getImage().setImageString(s);
-
-                postRepository.save(newPost);
-                return "post/success";
-            } else {
-                return "error";
-            }
-        } catch (Exception e) {
-            log.info(e.getMessage());
-            return "error";
+        if (postService.saveImageToPost(name, file, post) == 1) {
+            log.info("Image uploaded successfully");
+            return "post/success";
         }
+        return "error";
+
     }
-
-    // old, delete probably
-    @PostMapping("/post")
-    public String addNewPost(@Valid Post post, BindingResult bindingResult,
-                             Model model, RedirectAttributes redirectAttributes) {
-        log.info("POST MAPPING TRIGGERED ");
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("post", post);
-            model.addAttribute("validationErrors", bindingResult.getAllErrors());
-            return "post";
-        } else {
-
-        }
-        log.info("CREATING NEW POST  ");
-        Post newPost = postService.addNewPost(post);
-        redirectAttributes.addAttribute("id", newPost.getId())
-                .addFlashAttribute("success", true);
-        return "redirect:/post";
-    }
-
-
-/*    @GetMapping("/image/{id}")
-    public String getImageDetails(@PathVariable Long id, Model model) {
-        try {
-    <img th:src="*{'data:image/jpg;base64,'+image}" alt="" />
-            Image imagesObj = imageService.getImage(id); // getting image
-            model.addAttribute("name", imagesObj.getName());
-            byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
-            model.addAttribute("image", new String(encode, "UTF-8"));
-
-            return "imagedetails";
-        } catch (Exception e) {
-
-            model.addAttribute("message", "Error in getting image");
-            return "redirect:/";
-        }
-    }*/
 
 
 }

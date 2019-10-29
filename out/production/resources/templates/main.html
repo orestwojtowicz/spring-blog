@@ -53,7 +53,7 @@
 
             <div class="post" th:each="post : ${posts}">
                 <div class="post-preview">
-                    <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}" alt="#"/>
+                    <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}" alt="#" style="width: 300px; height:300px"/>
                     <h2><a href="#" th:text="${post.getPostTitle()}"></a></h2>
                     <i class="fas fa-user">Orestoo</i>
                     &nbsp;<i class="fas fa-calendar">Mar 11, 2019</i>
