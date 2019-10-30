@@ -1,14 +1,17 @@
 package com.blog.demo.entities;
 
+import com.blog.demo.utills.BeanUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 
+
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Table(name = "post")
-public class Post extends Auditable {
+public class Post {
 
     @Id
     @GeneratedValue
@@ -45,9 +48,8 @@ public class Post extends Auditable {
     @ToString.Exclude
     private Image image;
 
-  /*  @Lob
     @Column
-    private byte[] testImage;*/
+    private LocalDate myDate;
 
 
     @ToString.Exclude
@@ -65,7 +67,5 @@ public class Post extends Auditable {
         this.postContent = postContent;
         this.postTitle = postTitle;
     }
-
-
 
 }

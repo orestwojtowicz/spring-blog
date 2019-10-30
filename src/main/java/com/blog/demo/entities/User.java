@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @Table(name = "user")
 @IPasswordMatch
 @IEmailPattern
-public class User extends Auditable implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

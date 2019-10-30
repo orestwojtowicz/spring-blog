@@ -6,22 +6,20 @@ import com.blog.demo.entities.Post;
 import com.blog.demo.entities.User;
 import com.blog.demo.repositories.PostRepository;
 import com.blog.demo.repositories.UserRepository;
+import com.blog.demo.services.dateFormatter.FormatDate;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.*;
 
 /**
  * Created by damiass on Sep, 2019
  */
 @Service
-public class PostService {
+public class PostService extends FormatDate {
 
     private PostRepository postRepository;
     private UserRepository userRepository;
@@ -44,7 +42,7 @@ public class PostService {
     }
 
     public Post addNewPost(Post post) {
-        post.setCreatedBy("ADMIN");
+        //post.setCreatedBy("ADMIN");
         Optional<User> userEmail =  userRepository.findByEmail("admin@gmail.com"); // CHANGE IT IN PRODUCTION
         postRepository.save(post);
         userPosts.add(post);
@@ -64,11 +62,10 @@ public class PostService {
             int saveImage = imageService.saveImage(model);
 
             if (saveImage == 1)
-
             newPost.setImage(model);
-            newPost.setCreationDate(LocalDateTime.now());
 
-            newPost.setCreatedBy("Orestoo");
+            newPost.setMyDate(formatDateToDayMonthYear());
+
             byte[] encodingImage = Base64.getEncoder().encode(image);
             String saveEncodedString = new String(encodingImage, "UTF-8");
             newPost.getImage().setImageString(saveEncodedString);
