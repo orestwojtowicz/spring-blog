@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +46,7 @@ public class UserService {
 
     public User registerNewUser(User user) {
 
+
         String secret = "{bcrypt}" + encoder.encode(user.getPassword());
         user.setPassword(secret);
         user.setConfirmPassword(secret);
@@ -52,8 +56,15 @@ public class UserService {
         // change to true after activation
         user.setEnabled(false);
         user.setActivationCode(UUID.randomUUID().toString());
+        user.setCreationDate(LocalDateTime.now());
+        user.setLastModifiedDate(LocalDateTime.now());
         emailSenderService.sendActivationEmail(user);
+
         userRepository.save(user);
+
+       // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+       // formatter.format(LocalDateTime.now());
+
         return user;
     }
 
@@ -86,7 +97,4 @@ public class UserService {
         emailSenderService.sendWelcomeEmail(user);
     }
 
-
 }
-// MAIL CONFIRMATION
-// https://www.codebyamir.com/blog/user-account-registration-with-spring-boot

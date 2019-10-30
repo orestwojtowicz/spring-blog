@@ -64,17 +64,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String mainPage(Model model) {
-        model.addAttribute("posts", postService.findAll());
 
-       /* List<Post> posts = postService.findAll();
-        for(Post post : posts) {
-            if (post != null) {
-                log.info("POST IMAGE " + post.getImage().getImageString());
-            }
-        }*/
-
-
-
+           model.addAttribute("posts", postService.findAll());
         return "main";
 
     }

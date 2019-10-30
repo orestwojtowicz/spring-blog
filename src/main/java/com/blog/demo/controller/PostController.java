@@ -35,7 +35,7 @@ public class PostController {
     private final PostService postService;
     private final PostRepository postRepository;
     private final ImageService imageService;
-    private LocalDateTime localDateTime;
+
 
     public PostController(PostService postService,PostRepository postRepository,
                           ImageService imageService) {
@@ -62,8 +62,10 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String getSinglePost(Model model, @PathVariable Long id) {
         Optional<Post> getPost = postRepository.findById(id);
-        String postContent = (getPost.get().getPostContent());
+        String postContent = getPost.get().getPostContent();
+        String postTitle = getPost.get().getPostTitle();
         model.addAttribute("posts", postService.findAll());
+        model.addAttribute("postTitle", postTitle);
         model.addAttribute("postContent", postContent);
 
         return "readpost";
@@ -73,8 +75,8 @@ public class PostController {
     // upload whole post content, postService.saveImageToPost return 1, if post added
     @PostMapping("/fileupload")
     public String fileUpload(@RequestParam("name") String name,
-                             @RequestParam("file") MultipartFile file, @Valid Post post) {
-
+                             @RequestParam("file") MultipartFile file,
+                             @Valid Post post) {
 
         if (postService.saveImageToPost(name, file, post) == 1) {
             log.info("Image uploaded successfully");

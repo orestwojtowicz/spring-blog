@@ -43,9 +43,6 @@
         <hr>
     </div>
 
-   <!-- POST SECTION         <img th:src="*{'data:image/jpg;base64,'+ post.getImage().getImageString()}" alt="#" />-->
-    <!-- <img th:src="@{'image/{id}' + @{post.image()}}" alt="#"  https://stackoverflow.com/questions/48235379/how-to-display-byte-array-from-a-model-in-thymeleaf?rq=1 />-->>-->
-
     <div class="content clearfix" >
         <!-- Main Content-->
         <h1 class="recent-post-title">Recent Posts</h1>
@@ -60,7 +57,7 @@
                    &nbsp; <i class="fas fa-comments">Comments</i>
                     <p class="preview-text" th:utext="${post.getPostContent()}">
                     </p>
-                    <a href="#" class="btn">Read More</a>
+                    <a th:href="|/post/${post.getId()}|" class="btn">Read More</a>
                 </div>
             </div>
 
@@ -106,10 +103,7 @@
                 <div class="footer-rights">
                     <h3 >© 2019 Code by Damian.  All rights reserved.</h3>
                 </div>
-
-
             </div>
-
         </div>
     </footer>
 

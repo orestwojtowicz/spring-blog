@@ -67,6 +67,7 @@ public class PostService {
 
             newPost.setImage(model);
             newPost.setCreationDate(LocalDateTime.now());
+
             newPost.setCreatedBy("Orestoo");
             byte[] encodingImage = Base64.getEncoder().encode(image);
             String saveEncodedString = new String(encodingImage, "UTF-8");
