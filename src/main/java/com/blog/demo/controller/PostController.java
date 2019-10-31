@@ -3,13 +3,19 @@ package com.blog.demo.controller;
 import com.blog.demo.entities.Comment;
 import com.blog.demo.entities.Image;
 import com.blog.demo.entities.Post;
+import com.blog.demo.entities.User;
+import com.blog.demo.repositories.CommentRepository;
 import com.blog.demo.repositories.PostRepository;
+import com.blog.demo.repositories.UserRepository;
 import com.blog.demo.services.CommentService;
 import com.blog.demo.services.ImageService;
 import com.blog.demo.services.PostService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +30,7 @@ import org.apache.commons.text.StringEscapeUtils;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by damiass on Oct, 2019
@@ -38,7 +43,11 @@ public class PostController {
     private final PostRepository postRepository;
     private final ImageService imageService;
     private final CommentService commentService;
-
+    private  Set<Comment> comments = new HashSet<>();
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public PostController(PostService postService,PostRepository postRepository,
                           ImageService imageService, CommentService commentService) {
@@ -74,13 +83,57 @@ public class PostController {
         model.addAttribute("posts", postService.findAll());
         model.addAttribute("postTitle", postTitle);
         model.addAttribute("postContent", postContent);
-
         model.addAttribute("comment", new Comment());
+        model.addAttribute("allComments", commentService.findAllByPostId(id));
+        model.addAttribute("commentSize", commentService.findAllByPostId(id).size());
 
-        model.addAttribute("allComments", commentService.findAll());
+        log.info("FIND ALL BY ID " + commentService.findAllByPostId(id));
 
         return "readpost";
     }
+
+    @PostMapping("/post/{id}")
+    public String addCommentToPost(@Valid Comment comment, Model model, @PathVariable Long id) {
+       log.info("POST TRIGERED XD");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggerUserName = auth.getName();
+        Optional<User> userData = userRepository.findByEmail(loggerUserName);
+        String nick = userData.get().getNick();
+
+        Optional<Post> post = postRepository.findById(id);
+
+        model.addAttribute("id", id);
+        model.addAttribute("comment", new Comment());
+
+
+        int value = post.get().getPostCommentsSize();
+        value = value + 1;
+
+        post.get().setPostCommentsSize(value);
+
+        log.info("PRZED " + value);
+
+
+        postRepository.updatePostCommentsSize(value, id);
+
+        log.info("PO " + value);
+        comments.add(comment);
+
+        comment.setPost(post.get());
+
+
+       //postek.setComments(comments);
+
+
+
+        comment.setUser(userData.get());
+       commentRepository.save(comment);
+
+
+        return "redirect:/";
+    }
+
+
 
 
     // upload whole post content, postService.saveImageToPost return 1, if post added

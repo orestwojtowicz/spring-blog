@@ -55,21 +55,28 @@ public class Post {
     @Column
     private LocalDate myDate;
 
+    @Column
+    private int postCommentsSize;
+
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "post")
     private Set<Comment> comments = new HashSet<>();
 
+
+
     public Post(String postContent, User user, Set<Comment> comments) {
         this.postContent = postContent;
         this.user = user;
         this.comments = comments;
+       // postCommentsSize++;
     }
 
     public Post(String postContent, String postTitle) {
         this.postContent = postContent;
         this.postTitle = postTitle;
+       // postCommentsSize++;
     }
 
 }

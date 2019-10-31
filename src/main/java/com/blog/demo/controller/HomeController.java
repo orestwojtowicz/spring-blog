@@ -67,11 +67,8 @@ public class HomeController {
 
            model.addAttribute("posts", postService.findAll());
 
-           List<Post> findAll = postService.findAll();
 
-           for(Post post : findAll) {
 
-           }
 
 
         return "main";
@@ -87,47 +84,7 @@ public class HomeController {
         return "login";
     }
 }
-/*    @GetMapping("/image/{id}")
-    public String getImageDetails(@PathVariable Long id, Model model) {
-        try {
-    <img th:src="*{'data:image/jpg;base64,'+image}" alt="" />
-            Image imagesObj = imageService.getImage(id); // getting image
-            model.addAttribute("name", imagesObj.getName());
-            byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
-            model.addAttribute("image", new String(encode, "UTF-8"));
 
-            return "imagedetails";
-        } catch (Exception e) {
-
-            model.addAttribute("message", "Error in getting image");
-            return "redirect:/";
-        }
-    }                 */
-
-
-
-
-
-/*
-
-    List<Post> posts = postService.findAll();
-
-    byte[] arr = new byte[127];
-        for(Post post : posts) {
-                if (post.getImage() != null) {
-                for(int i = 0; i< posts.size(); i++) {
-        arr = post.getImage().getImage();
-        }
-        }
-        }
-
-
-        log.info("PRINT");
-        log.info(Arrays.toString(arr));
-
-
-
-*/
 
 
 

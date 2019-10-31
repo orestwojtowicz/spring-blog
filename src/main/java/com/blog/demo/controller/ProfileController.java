@@ -22,8 +22,8 @@ import java.util.Optional;
 @Controller
 public class ProfileController {
 
-    private UserRepository userRepository;
-    private CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public ProfileController(UserRepository userRepository,CommentRepository commentRepository) {
         this.userRepository = userRepository;

@@ -52,18 +52,19 @@
 
 </div>
 <!-- DISPLAY COMMENTS -->
+<h4 th:text="${commentSize}" >COMMENTS </h4>
 <div th:each="comment : ${allComments}">
 
     <h5 th:text="${comment?.getCommentContent()}"> ZAWARTOSC </h5>
     <h5 th:text="${comment?.getUser()?.nick}"></h5>
-
+ <!-- <h4 th:text="${#arrays.length(allComments)}">Comments ()</h4>-->
 
 </div>
 
 <!-- ADD Comments -->
 
-<form method="post" th:object="${comment}" th:action="@{/add/comment}">
-    <h4>Comments ()</h4>
+<form method="post" th:object="${comment}" th:action="@{/post/__${id}__}">
+
 
 
 
