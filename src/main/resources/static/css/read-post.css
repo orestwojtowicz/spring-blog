@@ -7,3 +7,32 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+h1 {
+    border: 1px solid green;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+h4 {
+    margin-top: 100px;
+}
+
+.text-area {
+
+
+    min-width: 90%;
+    padding-bottom: 300px;
+    resize: none;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+    margin-bottom: 100px;
+
+
+
+
+
+}

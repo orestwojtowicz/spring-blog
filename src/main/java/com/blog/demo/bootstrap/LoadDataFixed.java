@@ -92,7 +92,7 @@ public class LoadDataFixed implements CommandLineRunner  {
 
         comments.add(firstComment);
         comments.add(secondComment);
-     userPosts.add(adminPost);
+        userPosts.add(adminPost);
 
         commentRepository.saveAll(comments);
         postRepository.saveAll(userPosts);
@@ -103,9 +103,13 @@ public class LoadDataFixed implements CommandLineRunner  {
         adminPost.setUser(admin);
         adminPostSecond.setUser(admin);
 
+
         adminPost.setComments(comments);
+        firstComment.setUser(admin);
 
         commentRepository.saveAll(comments);
+        commentRepository.save(firstComment);
+        postRepository.save(adminPost);
         //postRepository.saveAll(userPosts);
         //postRepository.save(adminPost2);
         //postRepository.save(adminPost3);

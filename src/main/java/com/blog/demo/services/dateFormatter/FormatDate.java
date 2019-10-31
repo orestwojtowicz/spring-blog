@@ -9,15 +9,20 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class FormatDate {
 
-    private LocalDate localDate;
+
     private DateTimeFormatter dayMonthYear = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private DateTimeFormatter dayMonthYearHours = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String dateString;
 
-    public LocalDate formatDateToDayMonthYear() {
+    protected LocalDate formatDateToDayMonthYear() {
         dateString = dayMonthYear.format(LocalDateTime.now());
         return LocalDate.parse(dateString, dayMonthYear);
     }
 
+    protected LocalDateTime formatDateToDayMonthYearHours() {
+        dateString = dayMonthYearHours.format(LocalDateTime.now());
+        return LocalDateTime.parse(dateString, dayMonthYearHours);
+    }
 
 
 }

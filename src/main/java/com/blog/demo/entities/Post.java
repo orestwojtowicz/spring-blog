@@ -12,6 +12,7 @@ import javax.persistence.*;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,9 @@ public class Post {
     // add post title
     @Column
     private String postTitle;
+
+    @Column
+    private String mainPageContent;
 
 
     @ToString.Exclude

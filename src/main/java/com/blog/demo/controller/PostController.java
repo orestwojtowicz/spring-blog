@@ -1,8 +1,10 @@
 package com.blog.demo.controller;
 
+import com.blog.demo.entities.Comment;
 import com.blog.demo.entities.Image;
 import com.blog.demo.entities.Post;
 import com.blog.demo.repositories.PostRepository;
+import com.blog.demo.services.CommentService;
 import com.blog.demo.services.ImageService;
 import com.blog.demo.services.PostService;
 
@@ -35,17 +37,21 @@ public class PostController {
     private final PostService postService;
     private final PostRepository postRepository;
     private final ImageService imageService;
+    private final CommentService commentService;
 
 
     public PostController(PostService postService,PostRepository postRepository,
-                          ImageService imageService) {
+                          ImageService imageService, CommentService commentService) {
         this.postService = postService;
         this.postRepository = postRepository;
         this.imageService = imageService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/read/post")
     public String loadPostToRead(Model model) {
+
+        model.addAttribute("comment", new Comment());
 
         return "readpost";
     }
@@ -54,6 +60,7 @@ public class PostController {
     @GetMapping("/post")
     public String loadPostPage(Model model) {
         model.addAttribute("post", new Post());
+
         return "post";
     }
 
@@ -67,6 +74,10 @@ public class PostController {
         model.addAttribute("posts", postService.findAll());
         model.addAttribute("postTitle", postTitle);
         model.addAttribute("postContent", postContent);
+
+        model.addAttribute("comment", new Comment());
+
+        model.addAttribute("allComments", commentService.findAll());
 
         return "readpost";
     }

@@ -43,12 +43,47 @@
     <hr>
 </div>
 <!-- Post Read Section -->
-<div class="post-text">
+<div>
     <h1 th:text="${postTitle}"></h1>
+</div>
+<div class="post-text">
+
     <p th:utext="${postContent}"></p>
 
 </div>
-<!-- Comments -->
+<!-- DISPLAY COMMENTS -->
+<div th:each="comment : ${allComments}">
+
+    <h5 th:text="${comment?.getCommentContent()}"> ZAWARTOSC </h5>
+    <h5 th:text="${comment?.getUser()?.nick}"></h5>
+
+
+</div>
+
+<!-- ADD Comments -->
+
+<form method="post" th:object="${comment}" th:action="@{/add/comment}">
+    <h4>Comments ()</h4>
+
+
+
+<textarea class="text-area" th:field="*{commentContent}">
+
+</textarea>
+    <div>
+        <button type="submit">Add Comment</button>
+    </div>
+    </form>
+
+<div>
+
+
+
+</div>
+
+
+
+
 <!-- Footer -->
 
 </body>

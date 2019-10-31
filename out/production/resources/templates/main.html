@@ -50,12 +50,19 @@
 
             <div class="post" th:each="post : ${posts}">
                 <div class="post-preview">
+                    <h2><a th:href="|/post/${post.getId()}|" th:text="${post.getPostTitle()}"></a></h2>
                     <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}" alt="#" style="width: 300px; height:300px"/>
-                    <h2><a href="#" th:text="${post.getPostTitle()}"></a></h2>
-                    <i class="fas fa-user">Orestoo</i>
-                     <i class="fas fa-calendar" th:text="${post.getMyDate()}"></i>
-                   &nbsp; <i class="fas fa-comments">Comments</i>
-                    <p class="preview-text" th:utext="${post.getPostContent()}">
+
+                    <div class="post-info">
+                        <i class="fas fa-user">&nbsp;Orestoo</i>
+                        <i class="fas fa-calendar" th:text=" ' ' + ${post.getMyDate()}">
+
+                             </i>
+                        &nbsp; <i class="fas fa-comments">&nbsp;Comments</i>
+                    </div>
+
+                    <p class="preview-text" th:text="${post.getMainPageContent()}">
+
                     </p>
                     <a th:href="|/post/${post.getId()}|" class="btn">Read More</a>
                 </div>

@@ -66,6 +66,14 @@ public class HomeController {
     public String mainPage(Model model) {
 
            model.addAttribute("posts", postService.findAll());
+
+           List<Post> findAll = postService.findAll();
+
+           for(Post post : findAll) {
+
+           }
+
+
         return "main";
 
     }
