@@ -6,7 +6,6 @@
 body {
     color: #5c5c5c;
 
-
 }
 
 
@@ -214,11 +213,6 @@ nav {
 
 }
 
-
-
-
-
-
 /*
     Side bar section
 */
@@ -295,27 +289,22 @@ nav {
     margin-left: auto;;
     padding-top: 1000px;
     opacity: 0.9;
-
     margin-bottom: 0;
-
-
 }
+
 .footer-icons li {
     list-style: none;
     display: inline;
     justify-content: space-around;
-   margin: 0 50px 0 0;
+    margin: 0 50px 0 0;
     cursor: pointer;
 
 }
 .footer-rights {
     float: right;
-
     position: absolute;
     margin-bottom: 80px;
     margin-left: 300px;
-
-
 
 }
 
@@ -366,7 +355,7 @@ nav {
         padding-bottom: 50px;
 
     }
-   }
+}
 
 
 
@@ -379,10 +368,8 @@ nav {
     }
 
     .footer-rights {
-
         margin-left: 50px;
         padding-left: 250px;
-
         border: solid 1px red;
 
     }
@@ -391,13 +378,11 @@ nav {
 
 @media screen and (min-width: 2000px) {
     .footer-rights {
-
       padding-left: 600px;
 
     }
 
-
-    }
+}
 
 @media screen and (max-width: 768px) {
     body {
@@ -427,25 +412,19 @@ nav {
     .burger {
         display: block;
         cursor: pointer;
-
-
     }
-
 
     .nav-active {
         transform: translateX(0%);
         transition: transform 0.5s ease-out;
         opacity: 0.5;
-
     }
-
 
 }
 
 
 @media screen and (max-width: 730px) {
     .footer-rights {
-
         margin-right: 250px;
         padding-right: 250px;
 
@@ -454,11 +433,6 @@ nav {
 
 @media screen and (max-width: 690px) {
     .footer-rights {
-
-
-
-
-
 
     }
 

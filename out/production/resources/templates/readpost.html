@@ -51,13 +51,36 @@
     <p th:utext="${postContent}"></p>
 
 </div>
-<!-- DISPLAY COMMENTS -->
-<h4 th:text="${commentSize}" >COMMENTS </h4>
-<div th:each="comment : ${allComments}">
 
-    <h5 th:text="${comment?.getCommentContent()}"> ZAWARTOSC </h5>
-    <h5 th:text="${comment?.getUser()?.nick}"></h5>
- <!-- <h4 th:text="${#arrays.length(allComments)}">Comments ()</h4>-->
+
+    <div class="flex-container">
+        <!-- DISPLAY COMMENTS -->
+         <div class="comments">
+            <h4 th:text="'Comments (' + ${commentSize} +')'"></h4>
+            <div th:each="comment : ${allComments}">
+        </div>
+
+
+        <div class="comment-user">
+
+            <a href="#">
+                <i class="fas fa-user">
+                    <span><i th:text="'Commented by ' + ${comment?.getUser()?.nick}" ></i></span>
+                </i>
+                <hr class="comment-line">
+            </a>
+                  <i class="fas fa-calendar">
+                      <span><i th:text="'DATA ' + ${comment?.getUser()?.nick}" ></i></span>
+                  </i>
+
+        </div>
+
+        <div>
+            <h5 th:text="${comment?.getCommentContent()}"></h5>
+            <hr class="comment-line">
+        </div>
+
+    </div>
 
 </div>
 
@@ -65,25 +88,17 @@
 
 <form method="post" th:object="${comment}" th:action="@{/post/__${id}__}">
 
-
-
-
 <textarea class="text-area" th:field="*{commentContent}">
 
 </textarea>
     <div>
-        <button type="submit">Add Comment</button>
+        <button type="submit" class="btn-comment">Comment</button>
     </div>
     </form>
 
 <div>
 
-
-
 </div>
-
-
-
 
 <!-- Footer -->
 
