@@ -71,6 +71,13 @@ public class User implements UserDetails {
     @Column
     private String passwordForChange;
 
+    @Column
+    @Lob
+    private String userAvatar;
+
+    @Column
+    private int userCommentCount;
+
     @Transient
     @NotEmpty(message = "Please enter Password Confirmation")
     private String confirmPassword;

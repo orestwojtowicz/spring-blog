@@ -56,6 +56,7 @@ public class UserService {
         // change to true after activation
         user.setEnabled(false);
         user.setActivationCode(UUID.randomUUID().toString());
+        user.setUserCommentCount(0);
        // user.setCreationDate(LocalDateTime.now());
        // user.setLastModifiedDate(LocalDateTime.now());
         emailSenderService.sendActivationEmail(user);

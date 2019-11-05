@@ -4,22 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
 </head>
 <body>
 
-
-    <div>Player avatar</div>
-
+      <!--  <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
 
 
-        <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>
 
-        <div>INNA PROBA </div>
-            <p th:text="${userName}"></p>
-            <p th:text="${nick}"></p>
-            <p th:text="${nick}"></p>
-       <!--     <time th:datetime="${userName.getC}"> TIME </time>-->
+    <div class="container">
+        <h5>Account details</h5>
 
+        <div class="profile-image">
+            <img th:src="@{'data:image/jpeg;base64,'+ ${image}}" alt="#">
+        </div>
+
+        <h6 th:text="'your email address: ' + ${userName}"></h6>
+        <h6 th:text="'accout name: ' + ${nick}"></h6>
+        <h6 th:text="'comments count: ' + ${commentCount}"></h6>
+        <h6 th:text="'creation date: ' + ${nick}"></h6>
+        <form method="post" enctype="multipart/form-data" action="/avatar/upload" th:object="${user}">
+            <div class="profile-image">
+                <!--     <img th:src="${(comment.user.image != null && !#strings.isEmpty(comment.user.image)) ? comment.user.image : '/images/default-user.png'}" th:alt="${comment.user.nameSurname}"/>-->
+
+
+                <div class="upload-avatar">
+
+                    <input th:type="file" name="file" required>
+                    <button type="submit">Add</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
 
 </body>
 </html>

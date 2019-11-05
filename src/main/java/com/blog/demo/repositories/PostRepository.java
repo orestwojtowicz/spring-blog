@@ -20,6 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findById(Long id);
 
+
     @Modifying
     @Query("update Post p set p.postCommentsSize = :commentsSize where p.id = :id")
     void updatePostCommentsSize(@Param("commentsSize") int postCommentsSize, @Param("id") Long id);

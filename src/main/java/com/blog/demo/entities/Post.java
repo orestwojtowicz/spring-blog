@@ -58,6 +58,9 @@ public class Post {
     @Column
     private int postCommentsSize;
 
+    @Column
+    private String postTopic;
+
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.REMOVE)

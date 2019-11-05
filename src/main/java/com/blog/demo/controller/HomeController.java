@@ -64,19 +64,10 @@ public class HomeController {
 
     @GetMapping("/")
     public String mainPage(Model model) {
-
            model.addAttribute("posts", postService.findAll());
 
-
-
-
-
-        return "main";
-
+          return "main";
     }
-
-
-
 
 
     @GetMapping("/login")

@@ -27,11 +27,6 @@ public class UserDetail {
     @OneToOne(mappedBy = "userDetail")
     private User user;
 
-
-
-
-
-
     public UserDetail(String aboutUser) {
         this.aboutUser = aboutUser;
     }

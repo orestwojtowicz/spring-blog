@@ -80,6 +80,7 @@ public class LoadDataFixed implements CommandLineRunner  {
 
         User admin = new User("admin@gmail.com", adminPassword, "bigos", true);
         admin.setUserDetail(adminDetails);
+        admin.setUserCommentCount(0);
 
         roleRepository.save(adminRole);
 
@@ -102,6 +103,12 @@ public class LoadDataFixed implements CommandLineRunner  {
 
         adminPost.setUser(admin);
         adminPostSecond.setUser(admin);
+
+
+        admin.addRole(adminRole);
+
+        userRepository.save(admin);
+        roleRepository.save(adminRole);
 
 
         adminPost.setComments(comments);

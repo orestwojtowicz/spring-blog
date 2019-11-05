@@ -94,41 +94,27 @@ public class PostController {
 
     @PostMapping("/post/{id}")
     public String addCommentToPost(@Valid Comment comment, Model model, @PathVariable Long id) {
-       log.info("POST TRIGERED XD");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggerUserName = auth.getName();
         Optional<User> userData = userRepository.findByEmail(loggerUserName);
         String nick = userData.get().getNick();
 
+
         Optional<Post> post = postRepository.findById(id);
 
         model.addAttribute("id", id);
         model.addAttribute("comment", new Comment());
-
-
+        int userCommentCount = userData.get().getUserCommentCount();
+        userCommentCount = userCommentCount + 1;
+        userRepository.updateUserCommentcount(userCommentCount, userData.get().getId());
         int value = post.get().getPostCommentsSize();
         value = value + 1;
-
         post.get().setPostCommentsSize(value);
-
-        log.info("PRZED " + value);
-
-
         postRepository.updatePostCommentsSize(value, id);
-
-        log.info("PO " + value);
         comments.add(comment);
-
         comment.setPost(post.get());
-
-
-       //postek.setComments(comments);
-
-
-
         comment.setUser(userData.get());
-       commentRepository.save(comment);
-
+        commentRepository.save(comment);
 
         return "redirect:/";
     }

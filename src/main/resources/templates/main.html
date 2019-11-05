@@ -51,14 +51,15 @@
             <div class="post" th:each="post : ${posts}">
                 <div class="post-preview">
                     <h2><a th:href="|/post/${post.getId()}|" th:text="${post.getPostTitle()}"></a></h2>
-                    <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}" alt="#" style="width: 300px; height:300px"/>
+                    <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}"
+                          alt="#" style="width: 300px; height:300px"/>
 
                     <div class="post-info">
                         <i class="fas fa-user">&nbsp;Orestoo</i>
                         <i class="fas fa-calendar" th:text=" ' ' + ${post.getMyDate()}">
 
                              </i>
-                        &nbsp; <i class="fas fa-comments" th:text="${post.getPostCommentsSize()}">&nbsp;</i>
+                        &nbsp; <i class="fas fa-comments" th:text="' ' + ${post.getPostCommentsSize()}">&nbsp;</i>
                     </div>
 
                     <p class="preview-text" th:text="${post?.getMainPageContent()}">
@@ -67,19 +68,17 @@
                     <a th:href="|/post/${post.getId()}|" class="btn">Read More</a>
                 </div>
             </div>
-g
+
         </div>
         <div class="sidebar">
-      <!--      <div class="section search">
-                <h2 class="section-title">Search</h2>
-                <form action method="post">
-                    <input type="text" name="search-term" class="text-input" placeholder="Search...">
-                </form>
-            </div>-->
+             <div class="section search">
+                <input id="myInput" onkeyup="myFunction()" type="text"
+                name="search-term" class="text-input" placeholder="Search...">
+            </div>
 
             <div class="div section topics">
                 <h2 class="section-title">Topics
-                    <ul>
+                    <ul  id="myUL">
                         <li><a href="#">Java</a></li>
                         <li><a href="#">Triathlon</a></li>
                         <li><a href="#">Ironman</a></li>
@@ -115,6 +114,33 @@ g
 
 
 </body>
+
+
+
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+
+</script>
+
 
 </html>
 

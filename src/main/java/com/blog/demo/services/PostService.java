@@ -66,7 +66,6 @@ public class PostService extends FormatDate {
 
              newPost.setMyDate(formatDateToDayMonthYear());
 
-
             byte[] encodingImage = Base64.getEncoder().encode(image);
             String saveEncodedString = new String(encodingImage, "UTF-8");
             newPost.getImage().setImageString(saveEncodedString);
