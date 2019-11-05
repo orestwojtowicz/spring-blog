@@ -1,18 +1,15 @@
 package com.blog.demo.controller;
 
-import com.blog.demo.entities.Image;
 import com.blog.demo.entities.User;
 import com.blog.demo.repositories.CommentRepository;
-import com.blog.demo.repositories.PostRepository;
 import com.blog.demo.repositories.UserRepository;
+import com.blog.demo.services.ProfileService;
 import com.blog.demo.services.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,13 +28,18 @@ public class ProfileController {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final UserService userService;
+    private final ProfileService profileService;
 
 
-    public ProfileController(UserRepository userRepository,CommentRepository commentRepository, UserService userService) {
+    public ProfileController(UserRepository userRepository,CommentRepository commentRepository, UserService userService,
+                             ProfileService profileService) {
+
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.userService = userService;
+        this.profileService = profileService;
     }
+
 
     /*@Secured("ROLE_ADMIN, ROLE_USER")*/
     @GetMapping("/profile")
@@ -45,8 +47,11 @@ public class ProfileController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggedUserName = auth.getName();
         Optional<User> userData = userRepository.findByEmail(loggedUserName);
+        String userName = userData.get().getUsername();
+
+
         String nick = userData.get().getNick();
-        model.addAttribute("userName", loggedUserName);
+        model.addAttribute("userName", userName);
         model.addAttribute("nick", nick);
         model.addAttribute("image", userData.get().getUserAvatar());
         model.addAttribute("commentCount", userData.get().getUserCommentCount());
