@@ -41,27 +41,25 @@ public class PostController {
 
     private final PostService postService;
     private final PostRepository postRepository;
-    private final ImageService imageService;
     private final CommentService commentService;
+    private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
     private  Set<Comment> comments = new HashSet<>();
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private UserRepository userRepository;
+
 
     public PostController(PostService postService,PostRepository postRepository,
-                          ImageService imageService, CommentService commentService) {
+                           CommentService commentService,   CommentRepository commentRepository,
+                           UserRepository userRepository) {
         this.postService = postService;
         this.postRepository = postRepository;
-        this.imageService = imageService;
         this.commentService = commentService;
+        this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/read/post")
     public String loadPostToRead(Model model) {
-
         model.addAttribute("comment", new Comment());
-
         return "readpost";
     }
 
@@ -69,7 +67,6 @@ public class PostController {
     @GetMapping("/post")
     public String loadPostPage(Model model) {
         model.addAttribute("post", new Post());
-
         return "post";
     }
 
@@ -85,9 +82,8 @@ public class PostController {
         model.addAttribute("postContent", postContent);
         model.addAttribute("comment", new Comment());
         model.addAttribute("allComments", commentService.findAllByPostId(id));
+        log.info("LOADING ALL COMMENTS " + commentService.findAllByPostId(id));
         model.addAttribute("commentSize", commentService.findAllByPostId(id).size());
-
-        log.info("FIND ALL BY ID " + commentService.findAllByPostId(id));
 
         return "readpost";
     }
@@ -118,9 +114,6 @@ public class PostController {
 
         return "redirect:/";
     }
-
-
-
 
     // upload whole post content, postService.saveImageToPost return 1, if post added
     @PostMapping("/fileupload")

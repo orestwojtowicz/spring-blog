@@ -57,12 +57,10 @@
         <!-- DISPLAY COMMENTS -->
          <div class="comments">
             <h4 th:text="'Comments (' + ${commentSize} +')'"></h4>
-            <div th:each="comment : ${allComments}">
-        </div>
+         </div>
 
-
+        <div th:each="comment : ${allComments}">
         <div class="comment-user">
-
             <a href="#">
                 <i class="fas fa-user">
                     <span><i th:text="'Commented by ' + ${comment?.getUser()?.nick}" ></i></span>
@@ -70,11 +68,9 @@
                 <hr class="comment-line">
             </a>
                   <i class="fas fa-calendar">
-                      <span><i th:text="'DATA ' + ${comment?.getUser()?.nick}" ></i></span>
+                      <span><i th:text="'Date ' + ${comment?.getUser()?.nick}" ></i></span>
                   </i>
-
         </div>
-
         <div>
             <h5 th:text="${comment?.getCommentContent()}"></h5>
             <hr class="comment-line">

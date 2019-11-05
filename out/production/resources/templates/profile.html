@@ -16,10 +16,8 @@
         <h5>Account details</h5>
 
          <div class="profile-image">
-
-
          <img th:if="${image}" th:src="@{'data:image/jpeg;base64,'+ ${image}}">
-      <img th:unless="${image}" th:src="@{/images/avatar.png}">
+         <img th:unless="${image}" th:src="@{/images/avatar.png}">
         </div>
 
 
@@ -29,18 +27,12 @@
         <h6 th:text="'creation date: ' + ${nick}"></h6>
         <form method="post" enctype="multipart/form-data" action="/avatar/upload" th:object="${user}">
             <div class="profile-image">
-                <!--     <img th:src="${(comment.user.image != null && !#strings.isEmpty(comment.user.image)) ? comment.user.image : '/images/default-user.png'}" th:alt="${comment.user.nameSurname}"/>-->
-
-
                 <div class="upload-avatar">
-
                     <input th:type="file" name="file" required>
                     <button type="submit">Add</button>
                 </div>
-
             </div>
         </form>
     </div>
-
 </body>
 </html>
