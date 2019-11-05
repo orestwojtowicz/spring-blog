@@ -51,6 +51,8 @@ public class ProfileController {
         model.addAttribute("image", userData.get().getUserAvatar());
         model.addAttribute("commentCount", userData.get().getUserCommentCount());
 
+        log.info("GETTING AVATAR POST "  + userData.get().getUserAvatar());
+
         return "profile";
     }
 

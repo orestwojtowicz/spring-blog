@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ public class Comment  {
 
     @NotNull
     private String commentContent;
+
+    @Column
+    String commentDate;
 
     // many comments can have one user
     @ManyToOne

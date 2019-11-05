@@ -11,6 +11,7 @@ import com.blog.demo.services.CommentService;
 import com.blog.demo.services.ImageService;
 import com.blog.demo.services.PostService;
 
+import com.blog.demo.services.dateFormatter.FormatDate;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ import java.util.*;
  */
 @Slf4j
 @Controller
-public class PostController {
+public class PostController extends FormatDate {
 
     private final PostService postService;
     private final PostRepository postRepository;
@@ -74,6 +75,9 @@ public class PostController {
     // GET SINGLE POST
     @GetMapping("/post/{id}")
     public String getSinglePost(Model model, @PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggerUserName = auth.getName();
+        Optional<User> userData = userRepository.findByEmail(loggerUserName);
         Optional<Post> getPost = postRepository.findById(id);
         String postContent = getPost.get().getPostContent();
         String postTitle = getPost.get().getPostTitle();
@@ -82,8 +86,8 @@ public class PostController {
         model.addAttribute("postContent", postContent);
         model.addAttribute("comment", new Comment());
         model.addAttribute("allComments", commentService.findAllByPostId(id));
-        log.info("LOADING ALL COMMENTS " + commentService.findAllByPostId(id));
         model.addAttribute("commentSize", commentService.findAllByPostId(id).size());
+        model.addAttribute("image", userData.get().getUserAvatar());
 
         return "readpost";
     }
@@ -98,6 +102,7 @@ public class PostController {
 
         Optional<Post> post = postRepository.findById(id);
 
+        comment.setCommentDate(formatDateToDayMonthYearHours());
         model.addAttribute("id", id);
         model.addAttribute("comment", new Comment());
         int userCommentCount = userData.get().getUserCommentCount();
@@ -111,8 +116,7 @@ public class PostController {
         comment.setPost(post.get());
         comment.setUser(userData.get());
         commentRepository.save(comment);
-
-        return "redirect:/";
+         return "redirect:/";
     }
 
     // upload whole post content, postService.saveImageToPost return 1, if post added

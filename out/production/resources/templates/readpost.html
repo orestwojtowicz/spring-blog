@@ -61,14 +61,20 @@
 
         <div th:each="comment : ${allComments}">
         <div class="comment-user">
-            <a href="#">
-                <i class="fas fa-user">
-                    <span><i th:text="'Commented by ' + ${comment?.getUser()?.nick}" ></i></span>
-                </i>
-                <hr class="comment-line">
-            </a>
+
+                <a href="#">
+                    <i class="fas fa-user">
+                        <span><i th:text="'Commented by ' + ${comment?.getUser()?.nick}" ></i></span>
+
+                        <img th:if="${image}" th:src="@{'data:image/jpeg;base64,'+ ${image}}">
+                        <img th:unless="${image}" th:src="@{/images/avatar.png}">
+                    </i>
+                    <hr class="comment-line">
+                </a>
+
+
                   <i class="fas fa-calendar">
-                      <span><i th:text="'Date ' + ${comment?.getUser()?.nick}" ></i></span>
+                      <span><i th:text="'Date ' + ${comment?.getCommentDate()}" ></i></span>
                   </i>
         </div>
         <div>

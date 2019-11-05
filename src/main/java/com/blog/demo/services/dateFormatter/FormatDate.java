@@ -1,8 +1,11 @@
 package com.blog.demo.services.dateFormatter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Created by damiass on Oct, 2019
@@ -11,17 +14,20 @@ public abstract class FormatDate {
 
 
     private DateTimeFormatter dayMonthYear = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private DateTimeFormatter dayMonthYearHours = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private String dateString;
+    private Date date;
+    private DateFormat dateFormat;
 
     protected LocalDate formatDateToDayMonthYear() {
         dateString = dayMonthYear.format(LocalDateTime.now());
         return LocalDate.parse(dateString, dayMonthYear);
     }
 
-    protected LocalDateTime formatDateToDayMonthYearHours() {
-        dateString = dayMonthYearHours.format(LocalDateTime.now());
-        return LocalDateTime.parse(dateString, dayMonthYearHours);
+    protected String formatDateToDayMonthYearHours() {
+        date = new Date();
+        dateString = "MM-yyy hh:mm:ss a";
+        dateFormat = new SimpleDateFormat(dateString);
+        return dateFormat.format(date);
     }
 
 
