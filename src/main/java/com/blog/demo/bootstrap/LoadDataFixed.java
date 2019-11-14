@@ -126,9 +126,18 @@ public class LoadDataFixed implements CommandLineRunner  {
         // commentRepository.delete(firstComment);
         //  postRepository.delete(adminPost); http://www.javadream.in/how-to-upload-file-in-spring-boot-using-form/
 
-        Optional<Post> post = postRepository.findById(5L);
+        Optional<Post> post = postRepository.findById(3L);
 
-        //postRepository.delete(post.get());
+        Optional<Comment> find = commentRepository.findById(5L);
+        log.info("COMMENT " + find.get());
+
+       // commentRepository.deleteById(4L);
+
+
+
+
+
+      //postRepository.delete(post.get());
 
     }
 }

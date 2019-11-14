@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2/console").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/profile").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/post/{id}/**").permitAll()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .usernameParameter("email")

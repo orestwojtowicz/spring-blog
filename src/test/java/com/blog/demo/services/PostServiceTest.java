@@ -58,7 +58,7 @@ class PostServiceTest {
 
         adminUser = new User();
         adminUser.setEmail("admin@gmail.com");
-        first.setCreatedBy("ADMIN");
+      //  first.setCreatedBy("ADMIN");
         first.setId(1L);
 
     }
@@ -91,7 +91,7 @@ class PostServiceTest {
 
         given(userRepository.findByEmail("random@gmail.com")).willThrow(new RuntimeException("Email not found"));
 
-        assertThat(first.getCreatedBy().equals("ADMIN"));
+      //  assertThat(first.getCreatedBy().equals("ADMIN"));
         then(postRepository).shouldHaveNoMoreInteractions();
 
 

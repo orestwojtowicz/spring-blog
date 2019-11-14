@@ -78,6 +78,7 @@
                   </i>
         </div>
         <div>
+            <a th:href="@{delete/__${comment.getId()}__}" sec:authorize="hasRole('ADMIN')" class="btn btn-danger">Delete</a>
             <h5 th:text="${comment?.getCommentContent()}"></h5>
             <hr class="comment-line">
         </div>
@@ -88,13 +89,17 @@
 
 <!-- ADD Comments -->
 
-<form method="post" th:object="${comment}" th:action="@{/post/__${id}__}">
+<form method="post" th:object="${comment}" th:action="@{/post/__${id}__}" >
 
-<textarea class="text-area" th:field="*{commentContent}">
+<textarea class="text-area" th:field="*{commentContent}" >
 
 </textarea>
-    <div>
+    <div sec:authorize="isAuthenticated()">
         <button type="submit" class="btn-comment">Comment</button>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href="@{/login}">Log in to add comment</a>
+        <a th:href="@{/register}">Register new account</a>
     </div>
     </form>
 

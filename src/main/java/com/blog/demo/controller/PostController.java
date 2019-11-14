@@ -20,10 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.HtmlUtils;
@@ -72,13 +69,14 @@ public class PostController extends FormatDate {
     }
 
 
-    // GET SINGLE POST
+    // GET SINGLE POST FIX THIS znalezc uzytkownika po napisanym komentarzy, czy cos podobnego
+    // i wtedy sciagnac jego avatar
     @GetMapping("/post/{id}")
     public String getSinglePost(Model model, @PathVariable Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String loggerUserName = auth.getName();
-        Optional<User> userData = userRepository.findByEmail(loggerUserName);
+
+
         Optional<Post> getPost = postRepository.findById(id);
+        log.info("OPTIONAL " + getPost.get());
         String postContent = getPost.get().getPostContent();
         String postTitle = getPost.get().getPostTitle();
         model.addAttribute("posts", postService.findAll());
@@ -87,10 +85,18 @@ public class PostController extends FormatDate {
         model.addAttribute("comment", new Comment());
         model.addAttribute("allComments", commentService.findAllByPostId(id));
         model.addAttribute("commentSize", commentService.findAllByPostId(id).size());
-        model.addAttribute("image", userData.get().getUserAvatar());
+
 
         return "readpost";
     }
+
+    @RequestMapping(value = "/post/delete/{id}")
+    private String deleteComment(@PathVariable(name = "id") Long id){
+        Optional<Comment> comment = commentRepository.findById(id);
+        commentRepository.deleteById(comment.get().getId());
+
+         return "redirect:/";
+}
 
     @PostMapping("/post/{id}")
     public String addCommentToPost(@Valid Comment comment, Model model, @PathVariable Long id) {
