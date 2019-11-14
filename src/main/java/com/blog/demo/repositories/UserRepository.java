@@ -20,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
    Optional<User> findByEmailAndActivationCode(String email, String activationCode);
    Optional<User> findByEmailAndResetPasswordToken(String email, String passwordToken);
 
+   void deleteByPasswordForChange(String deletePasswordForChange);
+
    // update existing password, and find user by id
    @Modifying
    @Query("update User u set u.password = :password where u.id = :id")
@@ -35,6 +37,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
    @Modifying
    @Query("update User u set u.userCommentCount = :userCommentCount where u.id = :id")
    void updateUserCommentcount(@Param("userCommentCount") int userCommentCount, @Param("id") Long id);
+
+
+
 
 
 }

@@ -78,7 +78,7 @@ public class ProfileController {
             log.info(imageSize + " IMAGE SIZE ");
 
             if (imageSize > 200000) {
-                return "/profile/error";
+                return "/profile/error-profile";
             } else {
                 byte[] encodingAvatar = Base64.getEncoder().encode(avatar);
                 String saveEncodedAvatar = new String(encodingAvatar, "UTF-8");

@@ -11,6 +11,7 @@ import com.blog.demo.services.PostService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -38,6 +40,8 @@ public class HomeController {
     private final PostService postService;
     private final ImageService imageService;
     private final ImageRepository imageRepository;
+    @Autowired
+    PostRepository postRepository;
 
 
 
@@ -62,12 +66,38 @@ public class HomeController {
     }
 
 
+
+    @GetMapping("/topics/{topicName}")
+    public String getTopicContent(@PathVariable String topicName, Model model) {
+
+
+        return "/post/topics";
+    }
+
+
+
     @GetMapping("/")
     public String mainPage(Model model) {
            model.addAttribute("posts", postService.findAll());
 
+          var allPosts = postService.findAll();
+          List<String> notSortedTopics = new ArrayList<>();
+          for (Post post : allPosts) {
+              notSortedTopics.add(post.getPostTopics());
+          }
+
+          List<String> sortedTopics = notSortedTopics.stream().distinct().collect(Collectors.toList());
+          for (String sortPost : sortedTopics) {
+              postRepository.findDistinctByPostTopics(sortPost);
+          }
+
+            int size = notSortedTopics.size() - sortedTopics.size();
+            model.addAttribute("sorted", sortedTopics);
+            model.addAttribute("size", size);
+
           return "main";
     }
+
 
 
     @GetMapping("/login")
@@ -75,17 +105,5 @@ public class HomeController {
         return "login";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

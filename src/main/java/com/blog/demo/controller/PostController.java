@@ -14,6 +14,7 @@ import com.blog.demo.services.PostService;
 import com.blog.demo.services.dateFormatter.FormatDate;
 import lombok.extern.slf4j.Slf4j;
 
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by damiass on Oct, 2019
@@ -86,7 +88,6 @@ public class PostController extends FormatDate {
         model.addAttribute("allComments", commentService.findAllByPostId(id));
         model.addAttribute("commentSize", commentService.findAllByPostId(id).size());
 
-
         return "readpost";
     }
 
@@ -104,7 +105,6 @@ public class PostController extends FormatDate {
         String loggerUserName = auth.getName();
         Optional<User> userData = userRepository.findByEmail(loggerUserName);
         String nick = userData.get().getNick();
-
 
         Optional<Post> post = postRepository.findById(id);
 
@@ -138,6 +138,32 @@ public class PostController extends FormatDate {
         return "error";
 
     }
+
+
+       // topics
+ /*      @GetMapping("/topics/{topicName}")
+       public String getTopicContent(@PathVariable String topicName, Model model) {
+        List<Post> postTopics = postRepository.findAllByPostTopics(topicName);
+        List<String> notSortedTopics = new ArrayList<>();
+
+        for (Post post : postTopics) {
+            notSortedTopics.add(post.getPostTopics());
+
+        }
+
+            model.addAttribute("postTopics", postTopics);
+
+
+
+          model.addAttribute("postCount", notSortedTopics.size());
+
+           List<String> sortedTopics = notSortedTopics.stream().distinct().collect(Collectors.toList());
+
+           model.addAttribute("topics", sortedTopics);
+
+           return "/post/topics";
+    }*/
+
 
 
 }

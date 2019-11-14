@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by damiass on Oct, 2019
@@ -73,6 +74,9 @@ public class LoadDataFixed implements CommandLineRunner  {
 
 
 
+
+
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -81,6 +85,12 @@ public class LoadDataFixed implements CommandLineRunner  {
         User admin = new User("admin@gmail.com", adminPassword, "bigos", true);
         admin.setUserDetail(adminDetails);
         admin.setUserCommentCount(0);
+
+
+        adminPost.setPostTopics("Java");
+        adminPost2.setPostTopics("Java");
+        adminPost3.setPostTopics("Triathlon");
+        adminPost4.setPostTopics("Triathlon");
 
         roleRepository.save(adminRole);
 
@@ -117,10 +127,11 @@ public class LoadDataFixed implements CommandLineRunner  {
         commentRepository.saveAll(comments);
        // commentRepository.save(firstComment);
         postRepository.save(adminPost);
+        postRepository.save(adminPost2);
         //postRepository.saveAll(userPosts);
         //postRepository.save(adminPost2);
-        //postRepository.save(adminPost3);
-        //postRepository.save(adminPost4);
+        postRepository.save(adminPost3);
+        postRepository.save(adminPost4);
         //postRepository.save(adminPost5);
         // userEntityService.registerNewUser(admin);
         // commentRepository.delete(firstComment);
@@ -133,9 +144,10 @@ public class LoadDataFixed implements CommandLineRunner  {
 
        // commentRepository.deleteById(4L);
 
+       var single =  postRepository.findDistinctByPostTopics("Java");
 
-
-
+       log.info("SINGLE  " + single.toString());
+       log.info("SIZE  " + single.size());
 
       //postRepository.delete(post.get());
 

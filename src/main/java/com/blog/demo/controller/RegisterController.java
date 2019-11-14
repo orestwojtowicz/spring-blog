@@ -55,7 +55,7 @@ public class RegisterController {
                // .addAttribute("id",newUser.getId())
                 .addAttribute("id", newUser.getPublicUserID())
                 .addFlashAttribute("success",true);
-        return "redirect:/register";
+        return "/register/register-success";
 
     }
 
@@ -71,7 +71,7 @@ public class RegisterController {
             newUser.setConfirmPassword(newUser.getPassword());
 
             userRepository.save(newUser);
-            userService.sendWelcomeEmail(newUser);
+            userService.sendWelcomeEmail(newUser); //     userService.sendWelcomeEmail(newUser);
             return "auth/activated";
         }
         return "redirect:/";

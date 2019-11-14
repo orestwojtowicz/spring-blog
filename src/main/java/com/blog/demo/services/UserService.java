@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -77,16 +78,20 @@ public class UserService {
 
     public User setActivationCodeAndSendAndEmail(User user) {
 
-        Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+        if (user.getEmail().equals(userRepository.findByEmail(user.getEmail()))) {
+            Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+            User returnUser = userEmail.get();
+            returnUser.setResetPasswordToken(UUID.randomUUID().toString()); // setting secret token
+            emailSenderService.sendResetPasswordEmail(returnUser);
+            String newPassword = "{bcrypt}" + encoder.encode(user.getPassword()); // saving new password to database
+            returnUser.setPasswordForChange(newPassword);
+            userRepository.save(returnUser);
 
-        User returnUser = userEmail.get();
-        returnUser.setResetPasswordToken(UUID.randomUUID().toString()); // setting secret token
-        emailSenderService.sendResetPasswordEmail(returnUser);
-        String newPassword = "{bcrypt}" + encoder.encode(user.getPassword()); // saving new password to database
-        returnUser.setPasswordForChange(newPassword);
-         userRepository.save(returnUser);
+            return returnUser;
+        }
 
-        return returnUser;
+        throw new EntityNotFoundException();
+
     }
 
 
@@ -99,3 +104,23 @@ public class UserService {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

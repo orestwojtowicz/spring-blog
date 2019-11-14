@@ -69,15 +69,13 @@ public class EmailSenderService {
 
     @Async
     public void sendResetPasswordEmail(User user) {
-        sendEmailFromTemplate(user, "email/reset", "Blog User Activation");
+        sendEmailFromTemplate(user, "email/reset", "Reset Password");
     }
 
 
     @Async void sendWelcomeEmail(User user) {
         sendEmailFromTemplate(user, "email/welcome", "Welcome new Spring User");
     }
-
-
 
 }
 

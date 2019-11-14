@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400|Open+Sans:700,700i,400i,400|Varela+Round:400">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+
 </head>
 <body>
 
@@ -74,17 +75,16 @@
                 <input id="myInput" onkeyup="myFunction()" type="text"
                 name="search-term" class="text-input" placeholder="Search...">
             </div>
-
+        <!--    th:href="@{delete/__${comment.getId()}__}"-->
             <div class="div section topics">
                 <h2 class="section-title">Topics
-                    <ul  id="myUL">
-                        <li><a href="#">Java</a></li>
-                        <li><a href="#">Triathlon</a></li>
-                        <li><a href="#">Ironman</a></li>
-                        <li><a href="#">Gdynia</a></li>
-                        <li><a href="#">Uaz</a></li>
-                        <li><a href="#">Fiat</a></li>
-                        <li><a href="#">Passat</a></li>
+                  <!--  <ul  id="myUL" th:each="topic : ${posts}">
+                        <li><a th:text="${topic.getPostTopics()}"  th:href="@{/topics/__${topic.getPostTopics()}__}"></a></li>
+"sorted", sortedTopics
+                    </ul>-->
+                    <ul  id="myUL" th:each="sort : ${sorted}">
+                        <li><a th:text="${sort} + '(' + ${sort + ')'}"  th:href="@{/topics/__${sort}__}"></a></li>
+
                     </ul>
 
                 </h2>
@@ -110,11 +110,7 @@
             </div>
         </div>
     </footer>
-
-
 </body>
-
-
 
 <script>
     function myFunction() {

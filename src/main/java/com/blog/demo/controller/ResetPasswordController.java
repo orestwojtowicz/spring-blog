@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -35,7 +36,8 @@ public class ResetPasswordController {
     }
 
     @GetMapping("/reset/password")
-    public String resetPassword() {
+    public String resetPassword(Model model) {
+        model.addAttribute("user", new User());
          return "reset-password";
     }
 
@@ -43,27 +45,25 @@ public class ResetPasswordController {
     // POST request for getting information about user, who wants to reset password and send activation email with secret token
     @PostMapping("/reset/password")
     public String resetPassword(User user, BindingResult bindingResult,
-                                  Model model, RedirectAttributes redirectAttributes
-    ) {
+                                Model model, RedirectAttributes redirectAttributes)
+     {
+
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             model.addAttribute("validationErrors", bindingResult.getAllErrors());
             log.info("ERROR IN IF RESETPASSWORD");
-            return "reset-password";
-        } else {
-
+            return "reset-error";
         }
-
 
         User resetPasswordUser = userService.setActivationCodeAndSendAndEmail(user);
 
-        redirectAttributes
+               redirectAttributes
                 // .addAttribute("id",newUser.getId())
                 .addAttribute("id", resetPasswordUser.getPublicUserID())
                 .addFlashAttribute("success",true);
-        log.info("WSZYSTKO OK CHCE ZWROCIC --- redirect:/reset-password");
-        return "redirect:/reset-password";
+
+        return "/register/reset-email";
 
     }
 
@@ -78,7 +78,7 @@ public class ResetPasswordController {
         Optional<User> user = userRepository.findByEmailAndResetPasswordToken(email, resetToken);
         userRepository.updatePassword(user.get().getPasswordForChange(), user.get().getId());
 
-    return "redirect:/";
+    return "/register/reset-ok";
 
  }
 

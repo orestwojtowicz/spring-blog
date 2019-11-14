@@ -1,8 +1,5 @@
 package com.blog.demo.entities;
 
-
-
-
 import com.blog.demo.entities.validator.emailValidator.IEmailPattern;
 import com.blog.demo.entities.validator.passwordValidator.passwordMatch.IPasswordMatch;
 
@@ -27,6 +24,7 @@ import java.util.stream.Collectors;
  */
 
 
+@EqualsAndHashCode
 @ToString
 @Entity
 @Getter
@@ -41,10 +39,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column
     private String publicUserID; // set in register service
-
 
     @NotNull
     @Size(min = 8, max = 20)
@@ -78,20 +74,16 @@ public class User implements UserDetails {
     @Column
     private int userCommentCount;
 
-    @Transient
+
     @NotEmpty(message = "Please enter Password Confirmation")
     private String confirmPassword;
 
+    @Column
     private String activationCode;
 
-
-
-
-    // @OneToOne(mappedBy = "user")
     @ToString.Exclude
     @JoinColumn(name = "user_detail_id", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(unique = true)
     private UserDetail userDetail;
 
     @ToString.Exclude
@@ -186,14 +178,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 }
-
-/*
-*  GenerationType.AUTO default
-*
-* */
-
-
-
 
 
 

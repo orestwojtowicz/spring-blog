@@ -59,7 +59,7 @@ public class Post {
     private int postCommentsSize;
 
     @Column
-    private String postTopic;
+    private String postTopics;
 
 
     @ToString.Exclude

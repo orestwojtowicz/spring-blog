@@ -3,6 +3,8 @@ package com.blog.demo.repositories;
 
 
 import com.blog.demo.entities.Post;
+import net.bytebuddy.TypeCache;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,9 +28,16 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("update Post p set p.postCommentsSize = :commentsSize where p.id = :id")
     void updatePostCommentsSize(@Param("commentsSize") int postCommentsSize, @Param("id") Long id);
 
-    // update existing password, and find user by id
-   // @Modifying
-  //  @Query("update User u set u.password = :password where u.id = :id")
-  //  void updatePassword(@Param("password") String password, @Param("id") Long id);
+
+    // find all post with releated topic
+
+    List<Post> findAllByPostTopics(String postTopic);
+
+
+    List<Post> findDistinctByPostTopics(String postTopics);
+
+    // and sort them date
+
+
 
 }

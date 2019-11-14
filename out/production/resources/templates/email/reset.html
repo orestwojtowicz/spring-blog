@@ -6,9 +6,9 @@
     <title>Your Message Subject or Title</title>
 </head>
 <body>
-    <h1>Code Blog Reset Password</h1>
-    <p th:text="|Dear ${user.email}|">Dear Username</p>
-    <p>Your password will be change, after clicking below link</p>
-    <a th:href="${baseURL} + '/activate/' + ${user.getEmail()} + '/' + ${user.getActivationCode()}">Activate</a>
+<h1>Code Blog Reset Password</h1>
+<p th:text="|Dear ${user.email}|">Dear Username</p>
+<p>Your password will be change, after clicking below link</p>
+<a th:href="${baseURL} + '/reset/' +  'password/' + ${user.getEmail()} + '/' + ${user.getResetPasswordToken()}">Reset password</a>
 </body>
 </html>
