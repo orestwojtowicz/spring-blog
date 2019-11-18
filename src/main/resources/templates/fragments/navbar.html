@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+
 </head>
 <body>
+<nav th:fragment="navbar">
+    <div class="logo">
+        <h4>MOJE LOGU</h4>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
+        <li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Account</a></li>
+        <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
+        <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
+        <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
 
+        <li><a th:href="@{/post}" sec:authorize="hasRole('ADMIN')" >add post</a></li>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
+</nav>
 </body>
 </html>

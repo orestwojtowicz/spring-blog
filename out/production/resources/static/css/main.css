@@ -70,9 +70,6 @@ nav {
     margin: 0 0 3px 0;
 }
 
-
-
-
 .burger div {
     width: 25px;
     height: 3px;
@@ -85,16 +82,11 @@ nav {
     display: none;
 }
 
-
-
-
-
 .nav-active {
     transform: translateX(0%);
     transition: transform 0.5s ease-out;
 
 }
-
 
 
 @keyframes navLinkFade {
@@ -141,7 +133,7 @@ nav {
     border-radius: .25rem;
     float: right;
     background-color: rgba(147, 255, 243, 0.84);
-    z-index: 1;
+
 
 }
 

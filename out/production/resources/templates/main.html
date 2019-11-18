@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+<head th:replace="~{fragments/head-fragment}">
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Montserrat:400|Open+Sans:700,700i,400i,400|Varela+Round:400">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
 </head>
 <body>
@@ -19,25 +16,7 @@
         <hr>
     </div>
 
-    <nav>
-        <div class="logo">
-            <h4>MOJE LOGU</h4>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#" sec:authorize="!isAuthenticated()">Home</a></li>
-            <li><a th:href="@{/profile}" sec:authorize="isAuthenticated()">Account</a></li>
-            <li><a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a></li>
-            <li><a href="#" th:href="@{logout}" sec:authorize="isAuthenticated()">Log out</a></li>
-            <li><a th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a></li>
-
-            <li><a th:href="@{/post}" sec:authorize="hasRole('ADMIN')" >add post</a></li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
+    <nav th:replace="~{fragments/navbar}"></nav>
 
     <div class="line-break-bottom">
         <hr>
@@ -85,68 +64,10 @@
     </div>
  <!--   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d327949.41646800475!2d19.724014562597112!3d50.04686776012794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471644c0354e18d1%3A0xb46bb6b576478abf!2zS3Jha8Ozdw!5e0!3m2!1spl!2spl!4v1570524580729!5m2!1spl!2spl"
             width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>-->
-    <footer>
-        <div class="footer-line">
-            <hr>
-            <div class="footer-icons">
-                <ul>
-                    <li><a><i class="fab fa-github fa-2x"></i></a></li>
-                    <li><a><i class="far fa-address-card fa-2x"></i></a></li>
-                    <li><a><i class="fab fa-linkedin fa-2x"></i></a></li>
-                </ul>
+    <footer th:replace="~{fragments/footer}"></footer>
+   </body>
+<script th:replace="~{fragments/scripts}"></script>
 
-                <div class="footer-rights">
-                    <h3 >© 2019 Code by Damian.  All rights reserved.</h3>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-
-<script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById('myInput');
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName('li');
-
-        // Loop through all list items, and hide those who doesn't match the search query
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
-            }
-        }
-    }
-
-
-    const navSlide = () => {
-        const burger = document.querySelector('.burger');
-        const nav = document.querySelector('.nav-links');
-        const navLinks = document.querySelectorAll('.nav-links li');
-
-        burger.addEventListener('click', () => {
-            nav.classList.toggle('nav-active');
-            navLinks.forEach((link, index)=>{
-                if(link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 15  + 1.0}s`;
-                }
-
-            });
-            // burger animation
-            burger.classList.toggle('toggle');
-        });
-    };
-
-    navSlide();
-</script>
 </html>
 
 

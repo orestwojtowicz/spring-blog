@@ -23,7 +23,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Post> findById(Long id);
 
-
     @Modifying
     @Query("update Post p set p.postCommentsSize = :commentsSize where p.id = :id")
     void updatePostCommentsSize(@Param("commentsSize") int postCommentsSize, @Param("id") Long id);
@@ -33,11 +32,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByPostTopics(String postTopic);
 
-
-    List<Post> findDistinctByPostTopics(String postTopics);
-
     // and sort them date
-
+    List<Post> findDistinctByPostTopics(String postTopics);
 
 
 }
