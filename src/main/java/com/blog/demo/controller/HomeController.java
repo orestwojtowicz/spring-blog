@@ -69,9 +69,20 @@ public class HomeController {
 
     @GetMapping("/topics/{topicName}")
     public String getTopicContent(@PathVariable String topicName, Model model) {
+        List<Post> posts =  postRepository.findAllByPostTopics(topicName);
 
+        String postImage = "";
 
-        return "/post/topics";
+        for (Post post : posts) {
+            postImage = post.getImage().getImageString();
+        }
+
+        log.info("OBRAZEK " + postImage);
+
+         model.addAttribute("topics", posts);
+         model.addAttribute("image", postImage);
+
+         return "/post/topics";
     }
 
 

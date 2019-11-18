@@ -141,7 +141,7 @@ public class PostController extends FormatDate {
 
 
        // topics
- /*      @GetMapping("/topics/{topicName}")
+/*     @GetMapping("/topics/{topicName}")
        public String getTopicContent(@PathVariable String topicName, Model model) {
         List<Post> postTopics = postRepository.findAllByPostTopics(topicName);
         List<String> notSortedTopics = new ArrayList<>();

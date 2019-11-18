@@ -56,14 +56,10 @@
 
                     <div class="post-info">
                         <i class="fas fa-user">&nbsp;Orestoo</i>
-                        <i class="fas fa-calendar" th:text=" ' ' + ${post.getMyDate()}">
-
-                             </i>
-                        &nbsp; <i class="fas fa-comments" th:text="' ' + ${post.getPostCommentsSize()}">&nbsp;</i>
+                        <i class="fas fa-calendar" th:text=" ' ' + ${post.getMyDate()}"></i>
+                      &nbsp; <i class="fas fa-comments" th:text="' ' + ${post.getPostCommentsSize()}"> </i>
                     </div>
-
                     <p class="preview-text" th:text="${post?.getMainPageContent()}">
-
                     </p>
                     <a th:href="|/post/${post.getId()}|" class="btn">Read More</a>
                 </div>
@@ -75,15 +71,10 @@
                 <input id="myInput" onkeyup="myFunction()" type="text"
                 name="search-term" class="text-input" placeholder="Search...">
             </div>
-        <!--    th:href="@{delete/__${comment.getId()}__}"-->
             <div class="div section topics">
                 <h2 class="section-title">Topics
-                  <!--  <ul  id="myUL" th:each="topic : ${posts}">
-                        <li><a th:text="${topic.getPostTopics()}"  th:href="@{/topics/__${topic.getPostTopics()}__}"></a></li>
-"sorted", sortedTopics
-                    </ul>-->
-                    <ul  id="myUL" th:each="sort : ${sorted}">
-                        <li><a th:text="${sort} + '(' + ${sort + ')'}"  th:href="@{/topics/__${sort}__}"></a></li>
+                     <ul  id="myUL" th:each="sort : ${sorted}">
+                        <li><a th:text="${sort}"  th:href="@{/topics/__${sort}__}"></a></li>
 
                     </ul>
 
@@ -121,7 +112,7 @@
         ul = document.getElementById("myUL");
         li = ul.getElementsByTagName('li');
 
-        // Loop through all list items, and hide those who don't match the search query
+        // Loop through all list items, and hide those who doesn't match the search query
         for (i = 0; i < li.length; i++) {
             a = li[i].getElementsByTagName("a")[0];
             txtValue = a.textContent || a.innerText;
@@ -134,9 +125,28 @@
     }
 
 
+    const navSlide = () => {
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links li');
+
+        burger.addEventListener('click', () => {
+            nav.classList.toggle('nav-active');
+            navLinks.forEach((link, index)=>{
+                if(link.style.animation) {
+                    link.style.animation = '';
+                } else {
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 15  + 1.0}s`;
+                }
+
+            });
+            // burger animation
+            burger.classList.toggle('toggle');
+        });
+    };
+
+    navSlide();
 </script>
-
-
 </html>
 
 
