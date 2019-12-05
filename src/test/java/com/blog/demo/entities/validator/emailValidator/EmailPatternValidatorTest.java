@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmailPatternValidatorTest {
 
     // explanation -> https://regexr.com/
-
     private String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
     private Pattern pattern = Pattern.compile(regex);
     EmailPatternValidator emailPatternValidator = new EmailPatternValidator();
@@ -51,14 +50,9 @@ class EmailPatternValidatorTest {
         }
     };
 
-
     @BeforeEach
     void setUp() {
     }
-
-
-
-
 
     @Test
     void emailRegexAnnotationCorrectEmailTest() {

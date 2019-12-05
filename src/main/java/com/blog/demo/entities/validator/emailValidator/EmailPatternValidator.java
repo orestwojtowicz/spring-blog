@@ -12,10 +12,8 @@ import java.util.regex.Pattern;
  */
 public class EmailPatternValidator implements ConstraintValidator<IEmailPattern, User> {
 
-
     String regex = "^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$";
     Pattern pattern = Pattern.compile(regex);
-
 
     @Override
     public boolean isValid(User user, ConstraintValidatorContext constraintValidatorContext) {
@@ -25,8 +23,6 @@ public class EmailPatternValidator implements ConstraintValidator<IEmailPattern,
         Matcher matcher = pattern.matcher(user.getEmail());
         return matcher.matches();
     }
-
-
 
     @Override
     public void initialize(IEmailPattern constraintAnnotation) {
