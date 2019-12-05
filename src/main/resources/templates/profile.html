@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+
+      <!--  <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>-->
+
+
+    <div class="container">
+        <h5>Account details</h5>
+
+         <div class="profile-image">
+         <img th:if="${image}" th:src="@{'data:image/jpeg;base64,'+ ${image}}">
+         <img th:unless="${image}" th:src="@{/images/avatar.png}">
+        </div>
+
+
+        <h6 th:text="'your email address: ' + ${userName}"></h6>
+        <h6 th:text="'accout name: ' + ${nick}"></h6>
+        <h6 th:text="'comments count: ' + ${commentCount}"></h6>
+        <h6 th:text="'creation date: ' + ${nick}"></h6>
+        <form method="post" enctype="multipart/form-data" action="/avatar/upload" th:object="${user}">
+            <div class="profile-image">
+                <div class="upload-avatar">
+                    <input th:type="file" name="file" required>
+                    <button type="submit">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,11 +1,17 @@
 package com.blog.demo.entities;
 
+import com.blog.demo.entities.validator.emailValidator.IEmailPattern;
+import com.blog.demo.entities.validator.passwordValidator.passwordMatch.IPasswordMatch;
+
+import com.blog.demo.entities.validator.passwordValidator.passwordStrength.IPasswordStrength;
+import com.blog.demo.entities.validator.whiteSpaceValidator.IWhiteSpace;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Collection;
@@ -16,33 +22,81 @@ import java.util.stream.Collectors;
 /**
  * Created by damiass on Sep, 2019
  */
+
+
+@EqualsAndHashCode
 @ToString
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "user")
+@IPasswordMatch
+@IEmailPattern
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private String publicUserID; // set in register service
 
     @NotNull
-    @Size(min = 8, max = 20)
+    @Size(min = 5, max = 50, message = "wrong email length")
     @Column(nullable = false, unique = true)
     private String email;
 
     @NotNull
     @Column(length = 100)
+    @IPasswordStrength
     private String password;
+
+    @IWhiteSpace
+    @NotNull
+    @Column(length = 100)
+    private String nick;
 
     @NotNull
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled = false;
+
+    @Column
+    private String resetPasswordToken;
+
+    @Column
+    private String passwordForChange;
+
+    @Column
+    @Lob
+    private String userAvatar;
+
+    @Column
+    private int userCommentCount;
 
 
+    @NotEmpty(message = "Please enter Password Confirmation")
+    private String confirmPassword;
+
+    @Column
+    private String activationCode;
+
+    @ToString.Exclude
+    @JoinColumn(name = "user_detail_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserDetail userDetail;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user",  cascade = CascadeType.REMOVE)
+    private Set<Post> posts = new HashSet<>();
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
+
+
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -65,9 +119,12 @@ public class User implements UserDetails {
     }
 
 
-    public User(@NotNull @Size(min = 8, max = 20) String email, @NotNull String password) {
+    public User(@NotNull @Size(min = 8, max = 20) String email,
+                @NotNull String password, @NotNull String nick, @NotNull boolean isEnabled) {
         this.email = email;
         this.password = password;
+        this.nick = nick;
+        this.enabled = isEnabled;
     }
 
     public void addRole(Role role) {
@@ -121,3 +178,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
