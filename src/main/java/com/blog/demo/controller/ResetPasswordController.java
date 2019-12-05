@@ -47,8 +47,6 @@ public class ResetPasswordController {
     public String resetPassword(User user, BindingResult bindingResult,
                                 Model model, RedirectAttributes redirectAttributes)
      {
-
-
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             model.addAttribute("validationErrors", bindingResult.getAllErrors());

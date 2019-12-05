@@ -26,13 +26,11 @@
         <!-- Main Content-->
         <h1 class="recent-post-title">Recent Posts</h1>
         <div class="main-content" >
-
             <div class="post" th:each="post : ${posts}">
                 <div class="post-preview">
                     <h2><a th:href="|/post/${post.getId()}|" th:text="${post.getPostTitle()}"></a></h2>
                     <img  th:src="@{'data:image/jpeg;base64,'+${post?.getImage()?.getImageString()}}"
                           alt="#" style="width: 300px; height:300px"/>
-
                     <div class="post-info">
                         <i class="fas fa-user">&nbsp;Orestoo</i>
                         <i class="fas fa-calendar" th:text=" ' ' + ${post.getMyDate()}"></i>
@@ -43,7 +41,6 @@
                     <a th:href="|/post/${post.getId()}|" class="btn">Read More</a>
                 </div>
             </div>
-
         </div>
         <div class="sidebar">
              <div class="section search">
@@ -54,12 +51,9 @@
                 <h2 class="section-title">Topics
                      <ul  id="myUL" th:each="sort : ${sorted}">
                         <li><a th:text="${sort}"  th:href="@{/topics/__${sort}__}"></a></li>
-
                     </ul>
-
                 </h2>
             </div>
-
         </div>
     </div>
  <!--   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d327949.41646800475!2d19.724014562597112!3d50.04686776012794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471644c0354e18d1%3A0xb46bb6b576478abf!2zS3Jha8Ozdw!5e0!3m2!1spl!2spl!4v1570524580729!5m2!1spl!2spl"

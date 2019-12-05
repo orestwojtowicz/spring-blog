@@ -43,7 +43,7 @@ public class User implements UserDetails {
     private String publicUserID; // set in register service
 
     @NotNull
-    @Size(min = 8, max = 20)
+    @Size(min = 5, max = 50, message = "wrong email length")
     @Column(nullable = false, unique = true)
     private String email;
 

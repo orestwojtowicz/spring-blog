@@ -6,34 +6,64 @@
     <title>Title</title>
 
     <link rel="stylesheet" th:href="@{/css/register.css}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-<div class="formContainer">
+
+
+
+
+
+<div class="signup-form">
     <form role="form" th:action="@{/register}" method="POST" th:object="${user}">
-        <fieldset>
-           <div class="errors">
+        <div class="errors">
                 <span>
                     <ul th:each="error : ${validationErrors}">
                       <li th:text="${error.getDefaultMessage()}"></li>
                     </ul>
                   </span>
+        </div>
+        <h2>Create Account</h2>
+        <p class="lead">It's free and hardly takes more than 30 seconds.</p>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input th:field="*{nick}" type="text" id="nick" class="form-control"  name="nick" placeholder="Name" required>
+           </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-paper-plane"></i></span>
+                <input th:field="*{email}" type="text" class="form-control" id="email" name="email" placeholder="your@email.com" required>
             </div>
-            <div class="input-fields">
-                <label for="email">Email</label>
-                <input th:field="*{email}" type="text" id="email" name="email" placeholder="your@email.com" required>
-                <label for="nick">user name</label>
-                <input th:field="*{nick}" type="text" id="nick" name="nick" placeholder="user name" required>
-                <label for="password">Password</label>
-                <input th:field="*{password}" type="password" id="password" name="password" placeholder="password" required>
-                <label for="confirmPassword" >Confirm Password</label>
-                <input th:field="*{confirmPassword}" type="password" id="confirmPassword"
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input th:field="*{password}" type="password" class="form-control" id="password" name="password" placeholder="password" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+				<span class="input-group-addon">
+					<i class="fa fa-lock"></i>
+					<i class="fa fa-check"></i>
+				</span>
+                <input th:field="*{confirmPassword}" type="password" id="confirmPassword" class="form-control"
                        name="confirmPassword" placeholder="confirm password" required>
             </div>
-            <div class="login-button">
-                <button type="submit" >Register</button>
-            </div>
-        </fieldset>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+        </div>
     </form>
+    <div class="text-center">Already have an account? <a th:href="@{/login}">Login here</a>.</div>
 </div>
 </body>
 </html>

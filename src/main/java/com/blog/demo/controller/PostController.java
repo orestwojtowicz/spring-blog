@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -100,6 +101,7 @@ public class PostController extends FormatDate {
 }
 
     @PostMapping("/post/{id}")
+    @Secured({"ROLE_ADMIN"})
     public String addCommentToPost(@Valid Comment comment, Model model, @PathVariable Long id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String loggerUserName = auth.getName();

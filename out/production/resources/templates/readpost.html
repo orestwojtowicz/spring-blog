@@ -58,21 +58,16 @@
          <div class="comments">
             <h4 th:text="'Comments (' + ${commentSize} +')'"></h4>
          </div>
-
         <div th:each="comment : ${allComments}">
         <div class="comment-user">
-
                 <a href="#">
                     <i class="fas fa-user">
                         <span><i th:text="'Commented by ' + ${comment?.getUser()?.nick}" ></i></span>
-
                         <img th:if="${image}" th:src="@{'data:image/jpeg;base64,'+ ${image}}">
                         <img th:unless="${image}" th:src="@{/images/avatar.png}">
                     </i>
                     <hr class="comment-line">
                 </a>
-
-
                   <i class="fas fa-calendar">
                       <span><i th:text="'Date ' + ${comment?.getCommentDate()}" ></i></span>
                   </i>
@@ -82,9 +77,7 @@
             <h5 th:text="${comment?.getCommentContent()}"></h5>
             <hr class="comment-line">
         </div>
-
     </div>
-
 </div>
 
 <!-- ADD Comments -->
@@ -92,7 +85,6 @@
 <form method="post" th:object="${comment}" th:action="@{/post/__${id}__}" >
 
 <textarea class="text-area" th:field="*{commentContent}" >
-
 </textarea>
     <div sec:authorize="isAuthenticated()">
         <button type="submit" class="btn-comment">Comment</button>

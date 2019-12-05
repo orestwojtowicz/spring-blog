@@ -87,10 +87,11 @@ public class LoadDataFixed implements CommandLineRunner  {
         admin.setUserCommentCount(0);
 
 
-        adminPost.setPostTopics("Java");
+
+       /* adminPost.setPostTopics("Java");
         adminPost2.setPostTopics("Java");
         adminPost3.setPostTopics("Triathlon");
-        adminPost4.setPostTopics("Triathlon");
+        adminPost4.setPostTopics("Triathlon");*/
 
         roleRepository.save(adminRole);
 
@@ -101,9 +102,9 @@ public class LoadDataFixed implements CommandLineRunner  {
 
 
 
-        comments.add(firstComment);
-        comments.add(secondComment);
-        userPosts.add(adminPost);
+      //  comments.add(firstComment);
+      //  comments.add(secondComment);
+     //   userPosts.add(adminPost);
 
 
         postRepository.saveAll(userPosts);
@@ -124,32 +125,20 @@ public class LoadDataFixed implements CommandLineRunner  {
         adminPost.setComments(comments);
         firstComment.setUser(admin);
 
-        commentRepository.saveAll(comments);
+       // commentRepository.saveAll(comments);
        // commentRepository.save(firstComment);
-        postRepository.save(adminPost);
-        postRepository.save(adminPost2);
+      //  postRepository.save(adminPost);
+       // postRepository.save(adminPost2);
         //postRepository.saveAll(userPosts);
         //postRepository.save(adminPost2);
-        postRepository.save(adminPost3);
-        postRepository.save(adminPost4);
+       // postRepository.save(adminPost3);
+       // postRepository.save(adminPost4);
         //postRepository.save(adminPost5);
         // userEntityService.registerNewUser(admin);
         // commentRepository.delete(firstComment);
         //  postRepository.delete(adminPost); http://www.javadream.in/how-to-upload-file-in-spring-boot-using-form/
 
-        Optional<Post> post = postRepository.findById(3L);
 
-        Optional<Comment> find = commentRepository.findById(5L);
-        log.info("COMMENT " + find.get());
-
-       // commentRepository.deleteById(4L);
-
-       var single =  postRepository.findDistinctByPostTopics("Java");
-
-       log.info("SINGLE  " + single.toString());
-       log.info("SIZE  " + single.size());
-
-      //postRepository.delete(post.get());
 
     }
 }

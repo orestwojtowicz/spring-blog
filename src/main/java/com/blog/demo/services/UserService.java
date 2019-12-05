@@ -78,8 +78,11 @@ public class UserService {
 
     public User setActivationCodeAndSendAndEmail(User user) {
 
-        if (user.getEmail().equals(userRepository.findByEmail(user.getEmail()))) {
+        log.info(user.getEmail() + " PRZED SPRAWDZENIEM");
+// .equals(userRepository.findByEmail(user.getEmail())
+        if (user.getEmail() != null) {
             Optional<User> userEmail = userRepository.findByEmail(user.getEmail());
+            log.info(userEmail.get().getEmail() + " EMAIL ");
             User returnUser = userEmail.get();
             returnUser.setResetPasswordToken(UUID.randomUUID().toString()); // setting secret token
             emailSenderService.sendResetPasswordEmail(returnUser);
